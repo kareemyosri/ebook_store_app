@@ -1,19 +1,21 @@
+import 'package:book_store_app/core/router/app_route.dart';
+import 'package:book_store_app/features/login/view/widgets/FormError.dart';
+import 'package:book_store_app/features/login/view/widgets/no_account.dart';
+import 'package:book_store_app/features/login/view/widgets/social_card.dart';
 import 'package:buildcondition/buildcondition.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../core/Theme/styles.dart';
 import '../../../../core/database/local_database/secure_cache.dart';
 import '../../../../core/enums.dart';
-import '../../../../core/router/app_route.dart';
 import '../../cubit/login_cubit.dart';
-import '../widgets/ElvatedButton.dart';
+import '../widgets/DefaultButton.dart';
 import '../widgets/TextFormField.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -26,120 +28,98 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
 
   late TextEditingController passwordController;
-  var formLoginKey = GlobalKey<FormState>();
+  final _formLoginKey = GlobalKey<FormState>();
 
   late LoginCubit cubit;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     cubit = LoginCubit.get(context);
     emailController = TextEditingController();
     passwordController = TextEditingController();
 
     FlutterSecureStorageCache.read(key: MySharedKeys.email).then((value) {
+      email = value;
+      emailController.text = email ?? "";
+      FlutterSecureStorageCache.read(key: MySharedKeys.password).then((value) {
         email = value;
-        emailController.text = email ?? "";
-        FlutterSecureStorageCache.read(key: MySharedKeys.password).then((value) {
-          email = value;
-          passwordController.text = password ?? "";
-
-        });
+        passwordController.text = password ?? "";
+      });
     });
-
-
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state is LoginSuccessState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Login Successfully'),
-                duration: Duration(seconds: 1),showCloseIcon: true,),
-            );
-
-            FlutterSecureStorageCache.write(key: MySharedKeys.token, value: cubit.loginModel?.data?.token).then((value){
-            //  Navigator.pushNamedAndRemoveUntil(context, AppRoute.layoutScreen, (route) => false);
-              print( cubit.loginModel?.data?.token);
-              print('logged');
-            });
-          }
-          if (state is LoginErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Something Went Wrong')),
-            );
-          }
-        },
-        builder: (context, state) {
-          return SingleChildScrollView(
-            child: SafeArea(
-              child: Form(
-                key: formLoginKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 4.h,
-                      ),
-                      Text(
-                        "Login Now!",
-                        style: GoogleFonts.roboto(
-                            fontSize: 28.sp, fontWeight: FontWeight.w400,
-                        color: AppTheme.blackColor
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Sign In"),
+      ),
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2.0.h),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 0.4.h),
+                  Text(
+                    "Welcome Back",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 2.8.h,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    "Sign in with your email and password  \nor continue with social media",
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8.0.h),
+                  Form(
+                    key: _formLoginKey,
+                    child: Column(
+                      children: [
+                        CustomTextFormField(
+                          autoValidateMode: AutovalidateMode.onUserInteraction,
+                          keyboardType: TextInputType.emailAddress,
+                          labelText: 'Email',
+                          controller: emailController,
+                          hintText: 'Email',
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'email must not be empty';
+                            }
+                            final bool isValid = EmailValidator.validate(value);
+                            if (!isValid) {
+                              return "please enter right email";
+                            }
+                            return null;
+                          },
+                          obscureText: false,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Text(
-                        '''Login to access your assigned tasks and personal overview.
-                             ''',
-                        style: GoogleFonts.roboto(
-                            color: Colors.grey,
-                            fontSize: 13.5.sp,
-                            fontWeight: FontWeight.w400),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      CustomTextFormField(
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                        keyboardType: TextInputType.emailAddress,
-                        labelText: 'Email',
-                        controller: emailController,
-                        hintText: 'Email',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'email must not be empty';
-                          }
-                          final bool isValid = EmailValidator.validate(value);
-                          if (!isValid) {
-                            return "please enter right email";
-                          }
-                          return null;
-                        }, obscureText: false,
-
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      CustomTextFormField(
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-
-                        labelText: 'Password',
-                          suffixIcon: IconButton(onPressed: () { cubit.changePasswordVisibility(); },
-                            icon:cubit.isPassword ? const  Icon(Icons.visibility_off_outlined): const Icon(Icons.visibility_outlined) ,),
-
+                        SizedBox(height: 3.0.h),
+                        CustomTextFormField(
+                          autoValidateMode: AutovalidateMode.onUserInteraction,
+                          labelText: 'Password',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              cubit.changePasswordVisibility();
+                            },
+                            icon: cubit.isPassword
+                                ? const Icon(Icons.visibility_off_outlined)
+                                : const Icon(Icons.visibility_outlined),
+                          ),
                           keyboardType: TextInputType.visiblePassword,
                           controller: passwordController,
                           hintText: 'Password',
-
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter password';
@@ -152,95 +132,120 @@ class _LoginScreenState extends State<LoginScreen> {
                             // one special character''';
                             //         }
                             return null;
-                          }, obscureText: cubit.isPassword,),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                            checkColor: Colors.white,
-                            value: cubit.isChecked,
-                            onChanged: (bool? value) {
-                              cubit.changeCheckBox(value);
-                            },
-                          ),
-
-                          Text(
-                            "Keep me logged in",
-                            style: GoogleFonts.roboto(
-                              color: AppTheme.blackColor,
-                                fontSize: 13.5.sp, fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "No account yet?",
-                            style: GoogleFonts.roboto(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey),
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, AppRoute.registerScreen);
-
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) {
-                                //       return const LoginScreen();
-                                //     }));
-                              },
-                              child: Text(
-                                "Register here",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color.fromRGBO(3, 14, 25, 0.70)),
-                              ))
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      BuildCondition(
-                        condition: state is! LoginLoadingState,
-                        builder: (context) => CustomElevatedButton(
-                                () {
-                              if (formLoginKey.currentState!.validate()) {
-                                FocusScope.of(context).unfocus();
-                                cubit.login(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                );
-                                FlutterSecureStorageCache.write(key: MySharedKeys.email, value: emailController.text);
-                                FlutterSecureStorageCache.write(key: MySharedKeys.password, value: passwordController.text);
-
-
-
-                              } else {
-                                FocusScope.of(context).unfocus();
-                              }
-                            },
-
-                            'LOGIN'
-
+                          },
+                          obscureText: cubit.isPassword,
                         ),
-                        fallback: (context) =>
-                        const Center(child: CircularProgressIndicator()),
+                        SizedBox(height: 3.0.h),
+                        Row(
+                          children: [
+                            BlocBuilder<LoginCubit, LoginState>(
+                              builder: (context, state) {
+                                return Checkbox(
+                                  value: cubit.isChecked,
+                                  activeColor: AppTheme.kPrimaryColor,
+                                  onChanged: (value) =>
+                                      cubit.changeCheckBox(value),
+                                );
+                              },
+                            ),
+                            const Text("Remember me"),
+                            const Spacer(),
+                            GestureDetector(
+                              // onTap: () => Navigator.pushNamedAndRemoveUntil(context, AppRoute.layoutScreen, (route) => false),
+                              child: const Text(
+                                "Forgot Password",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline),
+                              ),
+                            )
+                          ],
+                        ),
+                        FormError(errors: cubit.errors),
+                        SizedBox(height: 2.0.h),
+                        BlocConsumer<LoginCubit, LoginState>(
+                          listener: (context, state) {
+                            if (state is LoginSuccessState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Logged-in Successfully'),
+                                  duration: Duration(seconds: 1),
+                                  showCloseIcon: true,
+                                ),
+                              );
+                              // if user wants to be remembered, then write his credits in the cache
+                              if (cubit.isChecked) {
+                                FlutterSecureStorageCache.write(
+                                    key: MySharedKeys.token,
+                                    value: cubit.loginModel?.data?.token);
+                              }
+                              // Navigator.pushNamedAndRemoveUntil(context,
+                              //     AppRoute.layoutScreen, (route) => false);
+                              print(cubit.loginModel?.data?.token);
+                              print('logged');
+                            }
+                            if (state is LoginErrorState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Something went wrong!')),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return BuildCondition(
+                              condition: state is! LoginLoadingState,
+                              builder: (context) => DefaultButton(
+                                text: "Continue",
+                                onPressed: () {
+                                  if (_formLoginKey.currentState!.validate()) {
+                                    FocusScope.of(context).unfocus();
+                                    cubit.login(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
+                                    FlutterSecureStorageCache.write(
+                                        key: MySharedKeys.email,
+                                        value: emailController.text);
+                                    FlutterSecureStorageCache.write(
+                                        key: MySharedKeys.password,
+                                        value: passwordController.text);
+                                  } else {
+                                    FocusScope.of(context).unfocus();
+                                  }
+                                },
+                              ),
+                              fallback: (context) => const Center(
+                                  child: CircularProgressIndicator()),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SocialCard(
+                        icon: "assets/icons/google-icon.svg",
+                        press: () {},
                       ),
-
+                      SocialCard(
+                        icon: "assets/icons/facebook-2.svg",
+                        press: () {},
+                      ),
+                      SocialCard(
+                        icon: "assets/icons/twitter.svg",
+                        press: () {},
+                      ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  const NoAccountText(),
+                ],
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

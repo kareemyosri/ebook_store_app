@@ -1,9 +1,8 @@
+import 'package:book_store_app/features/login/view/widgets/DefaultButton.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../login/view/widgets/ElvatedButton.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+      appBar: AppBar(
         title: const Text("Email Verification"),
         centerTitle: true,
       ),
@@ -32,23 +31,24 @@ class _VerifyEmailState extends State<VerifyEmail> {
               style: TextStyle(
                 color: const Color(0xFF111827),
                 fontSize: 13.5.sp,
-              // fontFamily: 'SFProDisplay',
+                // fontFamily: 'SFProDisplay',
                 fontWeight: FontWeight.w500,
-
               ),
             ),
-            SizedBox(height: 1.h,),
+            SizedBox(
+              height: 1.h,
+            ),
             Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Please confirm your account by entering the authorization code sen to ',
+                    text:
+                        'Please confirm your account by entering the authorization code sen to ',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 11.5.sp,
                       //fontFamily: 'SFProDisplay',
                       fontWeight: FontWeight.w400,
-
                     ),
                   ),
                   TextSpan(
@@ -58,13 +58,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       fontSize: 11.5.sp,
                       fontFamily: 'SFProDisplay',
                       fontWeight: FontWeight.w400,
-
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 2.h,),
+            SizedBox(
+              height: 2.h,
+            ),
             OTPTextField(
                 controller: otpController,
                 length: 6,
@@ -78,7 +79,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   fontSize: 12.sp,
                   fontFamily: 'SFProDisplay',
                   fontWeight: FontWeight.w500,
-
                 ),
                 onChanged: (pin) {
                   print("Changed: " + pin);
@@ -86,23 +86,26 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 onCompleted: (pin) {
                   print("Completed: " + pin);
                 }),
-            SizedBox(height: 2.h,),
+            SizedBox(
+              height: 2.h,
+            ),
             Row(
               children: [
                 TextButton(
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero
-                    ),
-                    onPressed: (){}, child: Text("Resend Code",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 13.5.sp,
-                    //fontFamily: 'SFProDisplay',
-                    fontWeight: FontWeight.w500,
-
-                  ),
-                )),
-                SizedBox(width: 1.w,),
+                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                    onPressed: () {},
+                    child: Text(
+                      "Resend Code",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 13.5.sp,
+                        //fontFamily: 'SFProDisplay',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
+                SizedBox(
+                  width: 1.w,
+                ),
                 // Text("42s",
                 //   style: TextStyle(
                 //     color: AppTheme.primary5,
@@ -115,14 +118,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
               ],
             ),
             const Spacer(),
-            CustomElevatedButton(() { }, "Verify"),
-
-
-
+            DefaultButton(onPressed: () {}, text: "Verify"),
           ],
         ),
       ),
-
     );
   }
 }

@@ -1,23 +1,24 @@
-
 import 'package:book_store_app/features/login/view/screen/login_screen.dart';
+import 'package:book_store_app/features/onboarding/view/screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import '../../features/register/view/screen/register_screen.dart';
 import 'app_route.dart';
 
+Route? onGenerateRouter(RouteSettings settings) {
+  switch (settings.name) {
+    case AppRoute.splashScreen:
+      return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
 
-
-Route? onGenerateRouter(RouteSettings settings){
-  switch(settings.name){
     case AppRoute.loginScreen:
-      return MaterialPageRoute(builder: (_)=>  const LoginScreen());
+      return MaterialPageRoute(builder: (_) => const LoginScreen());
     // case AppRoute.onBoardingScreen:
     //   return MaterialPageRoute(builder: (_)=>  const OnboardingScreen());
     //
     // case AppRoute.loginScreen:
     //   return MaterialPageRoute(builder: (_)=>  const LoginScreen());
-    //
+
     case AppRoute.registerScreen:
-      return MaterialPageRoute(builder: (_)=>  const RegisterScreen());
+      return MaterialPageRoute(builder: (_) => const RegisterScreen());
     // case AppRoute.layoutScreen:
     //   return MaterialPageRoute(builder: (_)=>  const LayoutScreen());
     // case AppRoute.detailsScreen:
@@ -30,10 +31,7 @@ Route? onGenerateRouter(RouteSettings settings){
     //   final args=settings.arguments as AppointmentsData ;
     //   return MaterialPageRoute(builder: (_)=>  HistoryDetails(data: args,));
 
-
     default:
       return null;
-
   }
-
 }

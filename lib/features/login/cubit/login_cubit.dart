@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/database/remoteDatabase/DioHelper.dart';
 import '../../../core/database/remoteDatabase/endpoints.dart';
@@ -11,15 +10,14 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
-  static LoginCubit get(context)=>BlocProvider.of(context);
+  static LoginCubit get(context) => BlocProvider.of(context);
 
-  bool isChecked=false;
+  bool isChecked = false;
 
-  changeCheckBox(checked){
-    isChecked= checked;
+  changeCheckBox(checked) {
+    isChecked = checked;
     emit(ChangeRememberState());
   }
-
 
   LoginModel? loginModel;
 
@@ -28,11 +26,10 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
   }) {
     emit(LoginLoadingState());
-    DioHelper.PostData(url:loginUrl, data: {
+    DioHelper.PostData(url: loginUrl, data: {
       'email': email,
       "password": password,
     }).then((value) {
-
       loginModel = LoginModel.fromJson(value.data);
       //print(loginModel?.data?.token);
       //print(loginModel?.data?.id);
@@ -44,11 +41,19 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-
-  bool isPassword=true;
-  void changePasswordVisibility(){
-    isPassword =!  isPassword;
+  bool isPassword = true;
+  void changePasswordVisibility() {
+    isPassword = !isPassword;
     emit(ChangePasswordVisibilityState());
+  }
 
+  final List<String> errors = [];
+
+  void adderror({required String error}) {
+    if (!errors.contains(error)) errors.add(error);
+  }
+
+  void removeerror({required String error}) {
+    if (errors.contains(error)) errors.remove(error);
   }
 }
