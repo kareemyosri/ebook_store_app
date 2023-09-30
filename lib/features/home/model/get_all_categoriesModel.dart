@@ -3,17 +3,17 @@ class GetAllCategotiesModel {
   String? message;
   int? status;
 
-  GetAllCategotiesModel({this.data, this.message,  this.status});
+  GetAllCategotiesModel({this.data, this.message, this.status});
 
   GetAllCategotiesModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     message = json['message'];
 
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -108,13 +108,11 @@ class Links {
   String? first;
   String? last;
 
-
   Links({this.first, this.last});
 
   Links.fromJson(Map<String, dynamic> json) {
     first = json['first'];
     last = json['last'];
-
   }
 
   Map<String, dynamic> toJson() {

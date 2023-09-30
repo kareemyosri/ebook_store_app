@@ -9,6 +9,7 @@ class AppRoute {
   static const String detailsScreen = "DetailsScreen";
   static const String editProfileScreen = "EditProfileScreen";
   static const String detailsHistoryScreen = "DetailsHistoryScreen";
+  static const String categoryScreen = "CategoryScreen";
 
 //static const String homeScreen="HomeScreen";
   // static const String userPageScreen="userPageScreen";
