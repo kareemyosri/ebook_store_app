@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
           create: (context) => RegisterCubit(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit()..getSlider(),
+          create: (context) => HomeCubit()..getSlider()..getBestSeller()..getNewArrivals()
+          ..getAllCategories(),
         ),
       ],
       child: Sizer(

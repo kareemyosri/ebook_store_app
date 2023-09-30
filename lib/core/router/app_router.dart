@@ -19,6 +19,7 @@ Route? onGenerateRouter(RouteSettings settings) {
 
     case AppRoute.registerScreen:
       return MaterialPageRoute(builder: (_) => const RegisterScreen());
+
     // case AppRoute.layoutScreen:
     //   return MaterialPageRoute(builder: (_)=>  const LayoutScreen());
     // case AppRoute.detailsScreen:
