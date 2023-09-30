@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formLoginKey = GlobalKey<FormState>();
 
   late LoginCubit cubit;
+
   @override
   void initState() {
     super.initState();
@@ -38,11 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
 
-    FlutterSecureStorageCache.read(key: MySharedKeys.email).then((value) {
+    FlutterSecureStorageCache.read(key: MySharedKeys.email).then((value) async {
       email = value;
       emailController.text = email ?? "";
-      FlutterSecureStorageCache.read(key: MySharedKeys.password).then((value) {
-        email = value;
+      await FlutterSecureStorageCache.read(key: MySharedKeys.password)
+          .then((value) {
+        password = value;
         passwordController.text = password ?? "";
       });
     });
@@ -106,34 +108,39 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: false,
                         ),
                         SizedBox(height: 3.0.h),
-                        CustomTextFormField(
-                          autoValidateMode: AutovalidateMode.onUserInteraction,
-                          labelText: 'Password',
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              cubit.changePasswordVisibility();
-                            },
-                            icon: cubit.isPassword
-                                ? const Icon(Icons.visibility_off_outlined)
-                                : const Icon(Icons.visibility_outlined),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: passwordController,
-                          hintText: 'Password',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            //         RegExp regex = RegExp(
-                            //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
-                            //         if (!regex.hasMatch(value)) {
-                            //         return
-                            //           ''' password must contain at least one capital letter and
-                            // one special character''';
-                            //         }
-                            return null;
+                        BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            return CustomTextFormField(
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              labelText: 'Password',
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  cubit.changePasswordVisibility();
+                                },
+                                icon: cubit.isPassword
+                                    ? const Icon(Icons.visibility_off_outlined)
+                                    : const Icon(Icons.visibility_outlined),
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                              controller: passwordController,
+                              hintText: 'Password',
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                //         RegExp regex = RegExp(
+                                //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
+                                //         if (!regex.hasMatch(value)) {
+                                //         return
+                                //           ''' password must contain at least one capital letter and
+                                // one special character''';
+                                //         }
+                                return null;
+                              },
+                              obscureText: cubit.isPassword,
+                            );
                           },
-                          obscureText: cubit.isPassword,
                         ),
                         SizedBox(height: 3.0.h),
                         Row(

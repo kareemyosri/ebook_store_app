@@ -105,69 +105,79 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 2.h,
                         ),
-                        CustomTextFormField(
-                          autoValidateMode: AutovalidateMode.onUserInteraction,
-                          labelText: 'Password',
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              cubit.changePasswordVisibility();
-                            },
-                            icon: cubit.isPassword
-                                ? const Icon(Icons.visibility_off_outlined)
-                                : const Icon(Icons.visibility_outlined),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: passwordController,
-                          hintText: 'Password',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            //         RegExp regex = RegExp(
-                            //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
-                            //         if (!regex.hasMatch(value)) {
-                            //         return
-                            //           ''' password must contain at least one capital letter and
-                            // one special character''';
-                            //         }
-                            return null;
+                        BlocBuilder<RegisterCubit, RegisterState>(
+                          builder: (context, state) {
+                            return CustomTextFormField(
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              labelText: 'Password',
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  cubit.changePasswordVisibility();
+                                },
+                                icon: cubit.isPassword
+                                    ? const Icon(Icons.visibility_off_outlined)
+                                    : const Icon(Icons.visibility_outlined),
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                              controller: passwordController,
+                              hintText: 'Password',
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                //         RegExp regex = RegExp(
+                                //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
+                                //         if (!regex.hasMatch(value)) {
+                                //         return
+                                //           ''' password must contain at least one capital letter and
+                                // one special character''';
+                                //         }
+                                return null;
+                              },
+                              obscureText: cubit.isPassword,
+                            );
                           },
-                          obscureText: cubit.isPassword,
                         ),
                         SizedBox(
                           height: 2.h,
                         ),
-                        CustomTextFormField(
-                          autoValidateMode: AutovalidateMode.onUserInteraction,
-                          labelText: 'Confirm Password',
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              cubit.changePasswordVisibility();
-                            },
-                            icon: cubit.isPassword
-                                ? const Icon(Icons.visibility_off_outlined)
-                                : const Icon(Icons.visibility_outlined),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: confirmPasswordController,
-                          hintText: 'Confirm Password',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            if (value != passwordController.text) {
-                              return 'confirm password must match password';
-                              //         RegExp regex = RegExp(
-                              //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
-                              //         if (!regex.hasMatch(value)) {
-                              //         return
-                              //           ''' password must contain at least one capital letter and
-                              // one special character''';
-                              //         }
-                            }
-                            return null;
+                        BlocBuilder<RegisterCubit, RegisterState>(
+                          builder: (context, state) {
+                            return CustomTextFormField(
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              labelText: 'Confirm Password',
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  cubit.changePasswordVisibility();
+                                },
+                                icon: cubit.isPassword
+                                    ? const Icon(Icons.visibility_off_outlined)
+                                    : const Icon(Icons.visibility_outlined),
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                              controller: confirmPasswordController,
+                              hintText: 'Confirm Password',
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                if (value != passwordController.text) {
+                                  return 'confirm password must match password';
+                                  //         RegExp regex = RegExp(
+                                  //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
+                                  //         if (!regex.hasMatch(value)) {
+                                  //         return
+                                  //           ''' password must contain at least one capital letter and
+                                  // one special character''';
+                                  //         }
+                                }
+                                return null;
+                              },
+                              obscureText: cubit.isPassword,
+                            );
                           },
-                          obscureText: cubit.isPassword,
                         ),
                         SizedBox(
                           height: 2.h,

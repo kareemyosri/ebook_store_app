@@ -11,6 +11,8 @@ import 'core/database/local_database/cache_helper.dart';
 import 'core/database/local_database/secure_cache.dart';
 import 'core/database/remoteDatabase/DioHelper.dart';
 import 'core/router/app_router.dart';
+import 'features/home/cubit/home_cubit.dart';
+import 'features/home/view/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +40,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RegisterCubit(),
         ),
+        BlocProvider(
+          create: (context) => HomeCubit()..getSlider(),
+        ),
       ],
       child: Sizer(
         builder: (BuildContext context, Orientation orientation,
@@ -49,8 +54,8 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            // home: const OnBoardingScreen(),
-            onGenerateRoute: onGenerateRouter,
+            home:  HomeScreen(),
+           // onGenerateRoute: onGenerateRouter,
           );
         },
       ),

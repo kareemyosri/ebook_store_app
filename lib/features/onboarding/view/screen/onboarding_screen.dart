@@ -16,6 +16,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   late OnBoardingCubit cubit;
+  final controller = PageController();
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             Expanded(
               flex: 3,
               child: PageView.builder(
+                controller: controller,
                 onPageChanged: (value) => cubit.changePageIndex(value),
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => OnBoardingContent(
@@ -61,10 +63,25 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       },
                     ),
                     const Spacer(flex: 3),
-                    DefaultButton(
-                      text: "Continue",
-                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                          context, AppRoute.loginScreen, (route) => false),
+                    BlocBuilder<OnBoardingCubit, OnBoardingState>(
+                      builder: (context, state) {
+                        return DefaultButton(
+                            text: (cubit.state.currentPage ==
+                                    splashData.length - 1)
+                                ? "Get Started!"
+                                : "Continue",
+                            onPressed: () {
+                              if (cubit.state.currentPage ==
+                                  splashData.length - 1) {
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    AppRoute.loginScreen, (route) => false);
+                              } else {
+                                controller.nextPage(
+                                    duration: const Duration(milliseconds: 250),
+                                    curve: Curves.easeIn);
+                              }
+                            });
+                      },
                     ),
                     const Spacer(),
                   ],
