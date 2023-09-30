@@ -1,3 +1,4 @@
+import 'package:book_store_app/features/category/view/screens/category_screen.dart';
 import 'package:book_store_app/features/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,8 +6,9 @@ import 'package:sizer/sizer.dart';
 
 import '../../model/get_all_categoriesModel.dart';
 
-
 class Categories extends StatefulWidget {
+  const Categories({super.key});
+
   @override
   State<Categories> createState() => _CategoriesState();
 }
@@ -15,10 +17,10 @@ class _CategoriesState extends State<Categories> {
   late HomeCubit cubit;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    cubit=HomeCubit.get(context);
+    cubit = HomeCubit.get(context);
   }
+
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
@@ -38,9 +40,6 @@ class _CategoriesState extends State<Categories> {
           (index) => CategoryCard(
             icon: categories[index]["icon"],
             allCategories: cubit.allCategories[index],
-            press: () {
-              //navigate with id
-            },
           ),
         ),
       ),
@@ -49,20 +48,22 @@ class _CategoriesState extends State<Categories> {
 }
 
 class CategoryCard extends StatelessWidget {
-   const CategoryCard({
+  const CategoryCard({
     super.key,
     required this.icon,
-    required this.press,
     required this.allCategories,
   });
-   final AllCategories allCategories ;
+  final AllCategories allCategories;
   final String icon;
-  final void Function()? press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press,
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryScreen(category: allCategories),
+          )),
       child: SizedBox(
         width: 20.w,
         child: Column(
@@ -78,7 +79,7 @@ class CategoryCard extends StatelessWidget {
               child: SvgPicture.asset(icon),
             ),
             SizedBox(height: 0.5.h),
-            Text(allCategories.name??"", textAlign: TextAlign.center)
+            Text(allCategories.name ?? "", textAlign: TextAlign.center)
           ],
         ),
       ),

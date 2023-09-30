@@ -10,6 +10,8 @@ import 'home_header.dart';
 import 'popular_product.dart';
 
 class Body extends StatefulWidget {
+  const Body({super.key});
+
   @override
   State<Body> createState() => _BodyState();
 }
@@ -19,7 +21,6 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     cubit = HomeCubit.get(context);
   }
@@ -45,8 +46,7 @@ class _BodyState extends State<Body> {
                       ),
                       items: cubit.images
                           .map(
-                            (item) =>
-                            Container(
+                            (item) => Container(
                               child: Container(
                                 margin: const EdgeInsets.all(5.0),
                                 child: ClipRRect(
@@ -56,7 +56,7 @@ class _BodyState extends State<Body> {
                                         fit: BoxFit.cover, width: 1000.0)),
                               ),
                             ),
-                      )
+                          )
                           .toList(),
                     ),
                   );
@@ -68,7 +68,7 @@ class _BodyState extends State<Body> {
             const DiscountBanner(),
             BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
-                if(cubit.allCategories.isNotEmpty){
+                if (cubit.allCategories.isNotEmpty) {
                   return Categories();
                 }
                 return SizedBox();
@@ -80,7 +80,8 @@ class _BodyState extends State<Body> {
               builder: (context, state) {
                 if (cubit.bestSeller.isNotEmpty) {
                   return PopularProducts(
-                    title: 'Best Seller', products: cubit.bestSeller,
+                    title: 'Best Seller',
+                    products: cubit.bestSeller,
                   );
                 }
                 return const SizedBox();
@@ -92,7 +93,8 @@ class _BodyState extends State<Body> {
               builder: (context, state) {
                 if (cubit.newArrivals.isNotEmpty) {
                   return PopularProducts(
-                    title: 'New Arrivals', products: cubit.newArrivals,
+                    title: 'New Arrivals',
+                    products: cubit.newArrivals,
                   );
                 }
                 return const SizedBox();

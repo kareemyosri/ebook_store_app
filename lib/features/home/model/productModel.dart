@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class ProductModel {
   Data? data;
   String? message;
@@ -6,13 +8,13 @@ class ProductModel {
   ProductModel({this.data, this.message, this.status});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     message = json['message'];
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -59,15 +61,15 @@ class Products {
 
   Products(
       {this.id,
-        this.name,
-        this.description,
-        this.price,
-        this.discount,
-        this.priceAfterDiscount,
-        this.stock,
-        this.bestSeller,
-        this.image,
-        this.category});
+      this.name,
+      this.description,
+      this.price,
+      this.discount,
+      this.priceAfterDiscount,
+      this.stock,
+      this.bestSeller,
+      this.image,
+      this.category});
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -75,7 +77,9 @@ class Products {
     description = json['description'];
     price = json['price'];
     discount = json['discount'];
-    priceAfterDiscount = json['price_after_discount'];
+    priceAfterDiscount = json['price_after_discount'] != null
+        ? json['price_after_discount'].toDouble()
+        : null;
     stock = json['stock'];
     bestSeller = json['best_seller'];
     image = json['image'];

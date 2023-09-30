@@ -1,4 +1,6 @@
 import 'package:book_store_app/core/Theme/styles.dart';
+import 'package:book_store_app/features/home/view/screens/home_screen.dart';
+import 'package:book_store_app/features/profile/view/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -44,7 +46,9 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? AppTheme.kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                },
                    // Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
@@ -62,7 +66,9 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? AppTheme.kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                },
                     //Navigator.pushNamed(context, ProfileScreen.routeName),
 
               ),
