@@ -1,3 +1,4 @@
+import 'package:book_store_app/features/cart/cubit/cart_cubit.dart';
 import 'package:book_store_app/features/home_details/cubit/details_cubit.dart';
 import 'package:book_store_app/features/login/cubit/login_cubit.dart';
 import 'package:book_store_app/features/login/view/screen/login_screen.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ChangepasswordCubit(),
         ),
+
       ],
       child: Sizer(
         builder: (BuildContext context, Orientation orientation,

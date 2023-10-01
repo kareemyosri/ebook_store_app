@@ -1,4 +1,5 @@
 import 'package:book_store_app/features/all_books/view/screen/all_books_screen.dart';
+import 'package:book_store_app/features/cart/view/screens/cart_screen.dart';
 import 'package:book_store_app/features/category/view/screens/category_screen.dart';
 import 'package:book_store_app/features/changePassword/view/change_password_screen.dart';
 import 'package:book_store_app/features/favourites/view/screens/favourite_screen.dart';
@@ -41,6 +42,8 @@ Route? onGenerateRouter(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const MyAccountScreenBody());
     case AppRoute.changePasswordScreen:
       return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
+    case AppRoute.cartScreen:
+      return MaterialPageRoute(builder: (_) =>  CartScreen());
 
 
 

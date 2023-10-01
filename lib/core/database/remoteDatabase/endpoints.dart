@@ -9,4 +9,7 @@ const String getAllBooksUrl = "/products";
 const String profileUrl = "/profile";
 const String updateProfileUrl = "/update-profile";
 const String addToCartUrl = "/add-to-cart";
+const String getCartUrl = "/cart";
 const String updatePasswordUrl = "/update-password";
+const String removeItemCartUrl = "/remove-from-cart";
+

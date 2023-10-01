@@ -1,3 +1,4 @@
+import 'package:book_store_app/core/router/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,7 +21,9 @@ class HomeHeader extends StatelessWidget {
           SearchField(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
-            press: () {} //Navigator.pushNamed(context, CartScreen.routeName),
+            press: () {
+              Navigator.pushNamed(context, AppRoute.cartScreen);
+            } //Navigator.pushNamed(context, CartScreen.routeName),
           ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
