@@ -4,3 +4,5 @@ const String sliderUrl = "/sliders";
 const String bestSellerUrl = "/products-bestseller";
 const String newArrivalsUrl = "/products-new-arrivals";
 const String getAllCategoriesUrl = "/categories";
+const String profileUrl = "/profile";
+const String updateProfileUrl = "/update-profile";
