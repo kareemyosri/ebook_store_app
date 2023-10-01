@@ -6,7 +6,7 @@ enum MySharedKeys{
   userType
 }
 
-enum MenuState { home, favourite, message, profile }
+enum MenuState { home, favourite, books, profile }
 
 
 // enum TaskStates{

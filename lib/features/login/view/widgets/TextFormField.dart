@@ -33,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
       this.onTap,
       this.prefixIconColor,
       this.suffixIconColor,
-      required this.obscureText,
+      this.obscureText = false,
       this.errorColor,
       this.autoValidateMode,
       this.errorText,

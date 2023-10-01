@@ -1,6 +1,6 @@
 import 'package:book_store_app/core/Theme/styles.dart';
-import 'package:book_store_app/features/home/view/screens/home_screen.dart';
-import 'package:book_store_app/features/profile/view/screens/profile_screen.dart';
+import 'package:book_store_app/core/router/app_route.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,17 +47,36 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                  Navigator.pushNamed(context, AppRoute.homeScreen);
                 },
                    // Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
-                onPressed: () {},
+                icon: SvgPicture.asset("assets/icons/Heart Icon.svg",
+                  color: MenuState.favourite == selectedMenu
+                      ? AppTheme.kPrimaryColor
+                      : inActiveIconColor,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoute.favouriteScreen);
+
+
+                },
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () {},
+                icon: SvgPicture.asset("assets/icons/read-book-icon.svg",
+                  fit: BoxFit.cover,
+                  height: 20,
+                  width: 22,
+                  color: MenuState.books == selectedMenu
+                      ? AppTheme.kPrimaryColor
+                      : inActiveIconColor,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoute.allBooksScreen);
+
+
+                },
               ),
               IconButton(
                 icon: SvgPicture.asset(
@@ -67,9 +86,9 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                  Navigator.pushNamed(context, AppRoute.profileScreen);
+
                 },
-                    //Navigator.pushNamed(context, ProfileScreen.routeName),
 
               ),
             ],

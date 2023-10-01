@@ -1,8 +1,16 @@
+import 'package:book_store_app/features/profile/cubit/profile_cubit.dart';
+import 'package:book_store_app/features/profile/view/screens/my_account_screen.dart';
+import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+enum ProfileAction { edit, update }
+
 class ProfilePic extends StatelessWidget {
+  final ProfileAction action;
   const ProfilePic({
+    required this.action,
     super.key,
   });
 
@@ -13,11 +21,20 @@ class ProfilePic extends StatelessWidget {
       width: 115,
       child: Stack(
         fit: StackFit.expand,
-      clipBehavior: Clip.none,
-      //  overflow: Overflow.visible,
+        clipBehavior: Clip.none,
+        //  overflow: Overflow.visible,
         children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage("assets/images/Profile Image.png"),
+          BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              if (state.profileStatus == ProfileStatus.loaded || state.profileStatus==ProfileStatus.updated) {
+                return CircleAvatar(
+                    backgroundImage: NetworkImage(state.user.image!));
+              }
+              return CircleAvatar(
+                child: SvgPicture.asset("assets/icons/User.svg",
+                    width: 40, height: 40),
+              );
+            },
           ),
           Positioned(
             right: -16,
@@ -33,9 +50,17 @@ class ProfilePic extends StatelessWidget {
                   ),
                   backgroundColor: const Color(0xFFF5F6F9),
                 ),
-
-                onPressed: () {},
-                child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                onPressed: () {
+                  // (action == ProfileAction.edit)
+                  //     ? Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => MyAccountScreenBody()))
+                  //     : () {};
+                },
+                child: (action == ProfileAction.edit)
+                    ? SvgPicture.asset("assets/icons/Plus Icon.svg")
+                    : SvgPicture.asset("assets/icons/remove.svg"),
               ),
             ),
           )

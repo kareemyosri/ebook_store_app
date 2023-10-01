@@ -41,7 +41,10 @@ class Body extends StatelessWidget {
                                   color: AppTheme.kTextColor,
                                   decoration: TextDecoration.lineThrough)
                           ),
-                          Text('${products.priceAfterDiscount.toString()} L.E',
+                          Text(
+                              products.priceAfterDiscount==null?
+                              '${double.parse(products.price!)* products.discount!/100} L.E':
+                              '${products.priceAfterDiscount.toString()} L.E',
                             style:  const TextStyle(color: AppTheme.kPrimaryColor)
                           ),
 

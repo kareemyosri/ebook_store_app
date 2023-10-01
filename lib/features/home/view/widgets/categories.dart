@@ -1,3 +1,4 @@
+import 'package:book_store_app/core/router/app_route.dart';
 import 'package:book_store_app/features/category/view/screens/category_screen.dart';
 import 'package:book_store_app/features/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
@@ -59,11 +60,13 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CategoryScreen(category: allCategories),
-          )),
+      onTap: () =>
+          // Navigator.push(
+          // context,
+          // MaterialPageRoute(
+          //   builder: (context) => CategoryScreen(category: allCategories),
+          // )),
+              Navigator.pushNamed(context, AppRoute.categoryScreen,arguments: allCategories),
       child: SizedBox(
         width: 20.w,
         child: Column(

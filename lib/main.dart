@@ -1,6 +1,8 @@
 import 'package:book_store_app/features/login/cubit/login_cubit.dart';
+import 'package:book_store_app/features/login/view/screen/login_screen.dart';
 import 'package:book_store_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:book_store_app/features/onboarding/view/screen/onboarding_screen.dart';
+import 'package:book_store_app/features/profile/cubit/profile_cubit.dart';
 import 'package:book_store_app/features/register/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,8 +43,14 @@ class MyApp extends StatelessWidget {
           create: (context) => RegisterCubit(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit()..getSlider()..getBestSeller()..getNewArrivals()
-          ..getAllCategories(),
+          create: (context) => HomeCubit()
+            ..getSlider()
+            ..getBestSeller()
+            ..getNewArrivals()
+            ..getAllCategories(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit(),
         ),
       ],
       child: Sizer(
@@ -55,8 +63,8 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home:  HomeScreen(),
-           // onGenerateRoute: onGenerateRouter,
+            //home: HomeScreen(),
+             onGenerateRoute: onGenerateRouter,
           );
         },
       ),

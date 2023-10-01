@@ -56,14 +56,13 @@ class User {
 
   User(
       {this.id,
-        this.name,
-        this.email,
-        this.address,
-        this.city,
-        this.phone,
-        this.emailVerified,
-        this.image});
-
+      this.name,
+      this.email,
+      this.address,
+      this.city,
+      this.phone,
+      this.emailVerified,
+      this.image});
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];

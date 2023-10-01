@@ -185,8 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     key: MySharedKeys.token,
                                     value: cubit.loginModel?.data?.token);
                               }
-                              // Navigator.pushNamedAndRemoveUntil(context,
-                              //     AppRoute.layoutScreen, (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  AppRoute.homeScreen, (route) => false);
                               print(cubit.loginModel?.data?.token);
                               print('logged');
                             }

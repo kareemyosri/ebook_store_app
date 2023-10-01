@@ -1,3 +1,4 @@
+import 'package:book_store_app/core/router/app_route.dart';
 import 'package:book_store_app/features/home/model/productModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,12 +25,14 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.35,
         child: GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailsScreen(
-                        products: product,
-                      ))),
+          onTap: () =>
+              // Navigator.push(
+              // context,
+              // MaterialPageRoute(
+              //     builder: (context) => DetailsScreen(
+              //           products: product,
+              //         ))),
+          Navigator.pushNamed(context, AppRoute.productDetailsScreen,arguments: product),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
