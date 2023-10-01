@@ -28,7 +28,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    cubit = CartCubit.get(context)..getCartItems();
+    cubit = CartCubit.get(context)
+      ..getCartItems();
   }
 
   @override
