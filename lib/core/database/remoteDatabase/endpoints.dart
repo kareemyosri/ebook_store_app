@@ -12,4 +12,4 @@ const String addToCartUrl = "/add-to-cart";
 const String getCartUrl = "/cart";
 const String updatePasswordUrl = "/update-password";
 const String removeItemCartUrl = "/remove-from-cart";
-
+const String updateItemCartUrl = "/update-cart";

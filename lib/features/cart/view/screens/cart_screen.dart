@@ -11,12 +11,14 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CartCubit(),
-      child: CartScreenBody(),
+      child: const CartScreenBody(),
     );
   }
 }
 
 class CartScreenBody extends StatefulWidget {
+  const CartScreenBody({super.key});
+
   @override
   State<CartScreenBody> createState() => _CartScreenBodyState();
 }
@@ -26,18 +28,16 @@ class _CartScreenBodyState extends State<CartScreenBody> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    cubit = CartCubit.get(context)
-      ..getCartItems();
+    cubit = CartCubit.get(context)..getCartItems();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
-      bottomNavigationBar: CheckoutCard(),
+      body: const Body(),
+      bottomNavigationBar: const CheckoutCard(),
     );
   }
 
@@ -53,7 +53,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
             builder: (context, state) {
               return Text(
                 "${cubit.cartItems.length} items",
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               );
             },
           ),

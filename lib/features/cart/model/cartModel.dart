@@ -90,15 +90,15 @@ class CartItems {
 
   CartItems(
       {this.itemId,
-        this.itemProductId,
-        this.itemProductName,
-        this.itemProductImage,
-        this.itemProductPrice,
-        this.itemProductDiscount,
-        this.itemProductPriceAfterDiscount,
-        this.itemProductStock,
-        this.itemQuantity,
-        this.itemTotal});
+      this.itemProductId,
+      this.itemProductName,
+      this.itemProductImage,
+      this.itemProductPrice,
+      this.itemProductDiscount,
+      this.itemProductPriceAfterDiscount,
+      this.itemProductStock,
+      this.itemQuantity,
+      this.itemTotal});
 
   CartItems.fromJson(Map<String, dynamic> json) {
     itemId = json['item_id'];
@@ -107,7 +107,10 @@ class CartItems {
     itemProductImage = json['item_product_image'];
     itemProductPrice = json['item_product_price'];
     itemProductDiscount = json['item_product_discount'];
-    itemProductPriceAfterDiscount = json['item_product_price_after_discount'] ;
+    itemProductPriceAfterDiscount =
+        json['item_product_price_after_discount'] != null
+            ? json['item_product_price_after_discount'].toDouble()
+            : null;
     itemProductStock = json['item_product_stock'];
     itemQuantity = json['item_quantity'];
     // itemTotal = json['item_total'];
