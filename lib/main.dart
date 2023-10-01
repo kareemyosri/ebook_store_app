@@ -1,3 +1,4 @@
+import 'package:book_store_app/features/home_details/cubit/details_cubit.dart';
 import 'package:book_store_app/features/login/cubit/login_cubit.dart';
 import 'package:book_store_app/features/login/view/screen/login_screen.dart';
 import 'package:book_store_app/features/onboarding/cubit/onboarding_cubit.dart';
@@ -13,6 +14,7 @@ import 'core/database/local_database/cache_helper.dart';
 import 'core/database/local_database/secure_cache.dart';
 import 'core/database/remoteDatabase/DioHelper.dart';
 import 'core/router/app_router.dart';
+import 'features/changePassword/cubit/changepassword_cubit.dart';
 import 'features/home/cubit/home_cubit.dart';
 import 'features/home/view/screens/home_screen.dart';
 
@@ -51,6 +53,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ProfileCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DetailsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ChangepasswordCubit(),
         ),
       ],
       child: Sizer(

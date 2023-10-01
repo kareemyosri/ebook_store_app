@@ -55,9 +55,11 @@ class _BodyState extends State<Body> {
             press: () => Navigator.pushNamed(context, AppRoute.accountDetailsScreen),
           ),
           ProfileMenu(
-            text: "Notifications",
+            text: "Change Password",
             icon: "assets/icons/Bell.svg",
-            press: () {},
+            press: () {
+              Navigator.pushNamed(context, AppRoute.changePasswordScreen);
+            },
           ),
           ProfileMenu(
             text: "Settings",
