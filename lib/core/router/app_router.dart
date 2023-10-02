@@ -9,6 +9,8 @@ import 'package:book_store_app/features/home/view/screens/home_screen.dart';
 import 'package:book_store_app/features/home_details/view/screen/details_screen.dart';
 import 'package:book_store_app/features/login/view/screen/login_screen.dart';
 import 'package:book_store_app/features/onboarding/view/screen/onboarding_screen.dart';
+import 'package:book_store_app/features/order_history/view/screens/order_history_screen.dart';
+import 'package:book_store_app/features/order_history_details/view/screens/order_history_details_screen.dart';
 import 'package:book_store_app/features/place_order/view/screens/order_screen.dart';
 import 'package:book_store_app/features/search/view/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -50,17 +52,12 @@ Route? onGenerateRouter(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const OrderScreen());
     case AppRoute.searchScreen:
       return MaterialPageRoute(builder: (_) => const SearchScreen());
+    case AppRoute.orderHistoryScreen:
+      return MaterialPageRoute(builder: (_) => const OrderHistoryScreen());
+    case AppRoute.orderHistoryDetailsScreen:
+      final args = settings.arguments as String;
+      return MaterialPageRoute(builder: (_) => OrderHistoryDetailScreen(id: args));
 
-    // case AppRoute.layoutScreen:
-    //   return MaterialPageRoute(builder: (_)=>  const LayoutScreen());
-    // case AppRoute.detailsScreen:
-    //   final args=settings.arguments as Doctors;
-    //
-    //   return MaterialPageRoute(builder: (_)=>  HomeDetailsScreen(doctor: args,));
-
-    // case AppRoute.detailsHistoryScreen:
-    //   final args=settings.arguments as AppointmentsData ;
-    //   return MaterialPageRoute(builder: (_)=>  HistoryDetails(data: args,));
 
     default:
       return null;

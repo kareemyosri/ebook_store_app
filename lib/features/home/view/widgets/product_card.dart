@@ -51,10 +51,7 @@ class _ProductCardState extends State<ProductCard> {
                       widget.product.image ?? "",
                       fit: BoxFit.contain,
                     )
-                    // Hero(
-                    //   tag: product.id.toString(),
-                    //   child: Image.network(product.image??"",fit: BoxFit.contain,),
-                    // ),
+
                     ),
               ),
               const SizedBox(height: 10),
@@ -78,42 +75,10 @@ class _ProductCardState extends State<ProductCard> {
                     listenWhen: (previous, current) => previous != current,
                     listener: (context, state) {
                       print('stated updated: $state');
-                      // if (state is AddFavouriteItemSuccessfullyState) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Item Added Successfully'),
-                      //       duration: Duration(seconds: 1),
-                      //       showCloseIcon: true,
-                      //     ),
-                      //   );
-                      // } else if (state
-                      //     is RemoveFavouriteItemSuccessfullyState) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Item Removed Successfully'),
-                      //       duration: Duration(seconds: 1),
-                      //       showCloseIcon: true,
-                      //     ),
-                      //   );
-                      // } else if (state is AddFavouriteItemErrorState) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Something Went Wrong!'),
-                      //       duration: Duration(seconds: 1),
-                      //       showCloseIcon: true,
-                      //     ),
-                      //   );
-                      // } else if (state is RemoveFavouriteItemErrorState) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Something Went Wrong!'),
-                      //       duration: Duration(seconds: 1),
-                      //       showCloseIcon: true,
-                      //     ),
-                      //   );
-                      // }
+
                     },
                     builder: (context, state) {
+
                       return InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {

@@ -14,4 +14,7 @@ class AppRoute {
   static const String cartScreen = "CartScreen";
   static const String orderScreen = "OrderScreen";
   static const String searchScreen = "SearchScreen";
+  static const String orderHistoryScreen = "OrderHistoryScreen";
+  static const String orderHistoryDetailsScreen = "OrderHistoryDetailsScreen";
+
 }

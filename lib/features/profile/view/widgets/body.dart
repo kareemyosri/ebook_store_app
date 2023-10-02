@@ -62,6 +62,14 @@ class _BodyState extends State<Body> {
             },
           ),
           ProfileMenu(
+            text: "Order History",
+            icon: "assets/icons/Settings.svg",
+            press: () {
+              Navigator.pushNamed(context, AppRoute.orderHistoryScreen);
+
+            },
+          ),
+          ProfileMenu(
             text: "Settings",
             icon: "assets/icons/Settings.svg",
             press: () {},
