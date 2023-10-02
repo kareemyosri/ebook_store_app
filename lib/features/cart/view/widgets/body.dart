@@ -51,14 +51,20 @@ class _BodyState extends State<Body> {
               child:
                   // CartCard(item: cubit.cartItems[index],
                   Dismissible(
-                key: Key(cubit.cartItems[index].itemId.toString()),
+                key: Key(cubit.cartItems[index].itemId.toString()), //cubit.cartItems[index].itemId.toString()
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
-                  cubit.cartItems.removeAt(index);
-                  cubit.removeItem(
-                    itemId: cubit.cartItems[index].itemId.toString(),
-                  );
-                },
+
+                  if (index >= 0 && index < cubit.cartItems.length) {
+                    cubit.removeItem(
+                      itemId: cubit.cartItems[index].itemId.toString(),
+                    );
+                    cubit.cartItems.removeAt(index);
+                  }
+
+
+
+                  },
                 background: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(

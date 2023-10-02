@@ -13,3 +13,11 @@ const String getCartUrl = "/cart";
 const String updatePasswordUrl = "/update-password";
 const String removeItemCartUrl = "/remove-from-cart";
 const String updateItemCartUrl = "/update-cart";
+const String checkoutUrl = "/checkout";
+const String getGovernorateUrl = "/governorates";
+const String placeOrderUrl = "/place-order";
+const String addFavouriteUrl = "/add-to-wishlist";
+const String removeFavouriteUrl = "/remove-from-wishlist";
+
+
+

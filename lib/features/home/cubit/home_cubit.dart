@@ -77,4 +77,77 @@ class HomeCubit extends Cubit<HomeState> {
       emit(GetAllCategoriesErrorState());
     });
   }
+
+  List<Products> favouriteItems=[];
+
+  void getFavouriteItems() {
+    emit(GetFavouriteItemsLoadingState());
+    DioHelper.getData(url:getFavouriteItemsUrl).then((value) {
+      //print(value.data);
+
+      for (var element in value.data['data']['data']) {
+        favouriteItems.add(Products.fromJson(element));
+      }
+      emit(GetFavouriteItemsSuccessfullyState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetFavouriteItemsErrorState());
+    });
+  }
+
+  bool checkFavourite(int id){
+    for (var products in favouriteItems){
+      if(products.id==id){
+        return true;
+      }
+
+    }
+    return false;
+
+  }
+
+  addFavourite({required String productId}){
+    emit(AddFavouriteItemLoadingState());
+    DioHelper.PostData(url: addFavouriteUrl,data: {
+      'product_id':productId
+    })
+        .then((value) {
+      getFavouriteItems();
+
+      emit(AddFavouriteItemSuccessfullyState());
+    })
+        .catchError((error){
+          print(error.toString());
+          print(AddFavouriteItemErrorState());
+    });
+  }
+
+  removeFavourite({required String productId}){
+    emit(RemoveFavouriteItemLoadingState());
+    DioHelper.PostData(url: removeFavouriteUrl,data: {
+      'product_id':productId
+    })
+        .then((value) {
+      getFavouriteItems();
+
+      emit(RemoveFavouriteItemSuccessfullyState());
+    })
+        .catchError((error){
+      print(error.toString());
+      print(RemoveFavouriteItemErrorState());
+    });
+  }
+
+  handleFavourite(int id){
+    if(checkFavourite(id)){
+      removeFavourite(productId: id.toString());
+    }
+    else{
+      addFavourite(productId: id.toString());
+    }
+    //getFavouriteItems();
+
+  }
+
+
 }

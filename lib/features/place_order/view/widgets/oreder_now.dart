@@ -1,6 +1,7 @@
 import 'package:book_store_app/core/Theme/styles.dart';
 import 'package:book_store_app/core/router/app_route.dart';
 import 'package:book_store_app/features/cart/cubit/cart_cubit.dart';
+import 'package:book_store_app/features/place_order/cubit/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,23 +9,28 @@ import 'package:sizer/sizer.dart';
 
 import '../../../login/view/widgets/DefaultButton.dart';
 
-class CheckoutCard extends StatefulWidget {
-  const CheckoutCard({
+class PlaceOrder extends StatefulWidget {
+  const PlaceOrder({
     super.key,
+    required this.phoneController,
+    required this.addressController,
   });
 
+  final TextEditingController phoneController;
+  final TextEditingController addressController;
+
   @override
-  State<CheckoutCard> createState() => _CheckoutCardState();
+  State<PlaceOrder> createState() => _PlaceOrderState();
 }
 
-class _CheckoutCardState extends State<CheckoutCard> {
-  late CartCubit cubit;
+class _PlaceOrderState extends State<PlaceOrder> {
+  late OrderCubit cubit;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    cubit = CartCubit.get(context);
+    cubit = OrderCubit.get(context);
   }
 
   @override
@@ -54,40 +60,18 @@ class _CheckoutCardState extends State<CheckoutCard> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  height: 4.h,
-                  width: 4.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset("assets/icons/receipt.svg"),
-                ),
-                const Spacer(),
-                const Text("Add voucher code"),
-                const SizedBox(width: 10),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: AppTheme.kTextColor,
-                )
-              ],
-            ),
             SizedBox(height: 2.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                BlocBuilder<CartCubit, CartState>(
+                BlocBuilder<OrderCubit, OrderState>(
                   builder: (context, state) {
                     return Text.rich(
                       TextSpan(
                         text: "Total:\n",
                         children: [
                           TextSpan(
-                            text: "${cubit.cartModel?.data?.total} L.E ",
+                            text: "${cubit.checkoutModel?.data?.total} L.E ",
                             style: const TextStyle(
                                 fontSize: 16, color: Colors.black),
                           ),
@@ -96,14 +80,28 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     );
                   },
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: DefaultButton(
-                    text: "Check Out",
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoute.orderScreen);
-                    },
-                  ),
+                BlocBuilder<OrderCubit, OrderState>(
+                  builder: (context, state) {
+                    if(state is PlaceOrderLoading){
+                      return const Center(
+                          child: CircularProgressIndicator());
+                    }
+                    return SizedBox(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.5,
+                      child: DefaultButton(
+                        text: "Order Now",
+                        onPressed: () {
+                          cubit.placeOrder(
+                              phone: widget.phoneController.text,
+                              address: widget.addressController.text);
+                          //    Navigator.pushNamed(context, AppRoute.orderScreen);
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

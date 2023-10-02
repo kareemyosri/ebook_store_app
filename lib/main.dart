@@ -1,3 +1,4 @@
+import 'package:book_store_app/core/Theme/styles.dart';
 import 'package:book_store_app/features/cart/cubit/cart_cubit.dart';
 import 'package:book_store_app/features/home_details/cubit/details_cubit.dart';
 import 'package:book_store_app/features/login/cubit/login_cubit.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
             ..getSlider()
             ..getBestSeller()
             ..getNewArrivals()
+            ..getFavouriteItems()
             ..getAllCategories(),
         ),
         BlocProvider(
@@ -70,7 +72,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
 
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.kPrimaryLightColor),
               useMaterial3: true,
             ),
             //home: HomeScreen(),

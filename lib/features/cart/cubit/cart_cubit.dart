@@ -32,6 +32,8 @@ class CartCubit extends Cubit<CartState> {
     emit(RemoveItemLoadingState());
     DioHelper.PostData(url: removeItemCartUrl, data: {'cart_item_id': itemId})
         .then((value) {
+      getCartItems();
+
       emit(RemoveItemSuccessfullyState());
     }).catchError((error) {
       print(error.toString());
