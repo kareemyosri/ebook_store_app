@@ -75,52 +75,50 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                   ),
                   BlocConsumer<HomeCubit, HomeState>(
+                    listenWhen: (previous, current) => previous != current,
                     listener: (context, state) {
-                      if(state is AddFavouriteItemSuccessfullyState){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Item Added Successfully'),
-                            duration: Duration(seconds: 1),
-                            showCloseIcon: true,
-                          ),
-                        );
-                      }
-                      else if(state is RemoveFavouriteItemSuccessfullyState){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Item Removed Successfully'),
-                            duration: Duration(seconds: 1),
-                            showCloseIcon: true,
-                          ),
-                        );
-
-                      }
-                      else if(state is AddFavouriteItemErrorState){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Something Went Wrong!'),
-                            duration: Duration(seconds: 1),
-                            showCloseIcon: true,
-                          ),
-                        );
-
-                      }
-                      else if(state is RemoveFavouriteItemErrorState){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Something Went Wrong!'),
-                            duration: Duration(seconds: 1),
-                            showCloseIcon: true,
-                          ),
-                        );
-                      }
+                      print('stated updated: $state');
+                      // if (state is AddFavouriteItemSuccessfullyState) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content: Text('Item Added Successfully'),
+                      //       duration: Duration(seconds: 1),
+                      //       showCloseIcon: true,
+                      //     ),
+                      //   );
+                      // } else if (state
+                      //     is RemoveFavouriteItemSuccessfullyState) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content: Text('Item Removed Successfully'),
+                      //       duration: Duration(seconds: 1),
+                      //       showCloseIcon: true,
+                      //     ),
+                      //   );
+                      // } else if (state is AddFavouriteItemErrorState) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content: Text('Something Went Wrong!'),
+                      //       duration: Duration(seconds: 1),
+                      //       showCloseIcon: true,
+                      //     ),
+                      //   );
+                      // } else if (state is RemoveFavouriteItemErrorState) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content: Text('Something Went Wrong!'),
+                      //       duration: Duration(seconds: 1),
+                      //       showCloseIcon: true,
+                      //     ),
+                      //   );
+                      // }
                     },
                     builder: (context, state) {
                       return InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-
-                              HomeCubit.get(context).handleFavourite(widget.product.id!);
+                          HomeCubit.get(context)
+                              .handleFavourite(product: widget.product);
                         },
                         child: Container(
                           padding: EdgeInsets.all(1.h),

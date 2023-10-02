@@ -42,7 +42,7 @@ class _BodyState extends State<Body> {
           child: Column(
             children: [
               ProductDescription(
-                products: widget.products,
+                product: widget.products,
                 pressOnSeeMore: () {},
               ),
               TopRoundedContainer(
@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
                     ),
                     // ColorDots(product: product),
                     BlocConsumer<DetailsCubit, DetailsState>(
-                      listener: (context, state){
+                      listener: (context, state) {
                         if (state is AddToCartSuccessfullyState) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -79,8 +79,7 @@ class _BodyState extends State<Body> {
                             ),
                           );
                           Navigator.pop(context);
-                        }
-                        else if (state is AddToCartErrorState) {
+                        } else if (state is AddToCartErrorState) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('something went Wrong'),

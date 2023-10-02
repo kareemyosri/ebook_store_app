@@ -78,11 +78,11 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  List<Products> favouriteItems=[];
+  List<Products> favouriteItems = [];
 
   void getFavouriteItems() {
     emit(GetFavouriteItemsLoadingState());
-    DioHelper.getData(url:getFavouriteItemsUrl).then((value) {
+    DioHelper.getData(url: getFavouriteItemsUrl).then((value) {
       //print(value.data);
 
       for (var element in value.data['data']['data']) {
@@ -95,59 +95,46 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  bool checkFavourite(int id){
-    for (var products in favouriteItems){
-      if(products.id==id){
+  bool checkFavourite(int id) {
+    for (var products in favouriteItems) {
+      if (products.id == id) {
         return true;
       }
-
     }
     return false;
-
   }
 
-  addFavourite({required String productId}){
+  addFavourite({required Products product}) {
     emit(AddFavouriteItemLoadingState());
-    DioHelper.PostData(url: addFavouriteUrl,data: {
-      'product_id':productId
-    })
-        .then((value) {
-      getFavouriteItems();
-
+    return DioHelper.PostData(url: addFavouriteUrl, data: {
+      'product_id': product.id,
+    }).then((value) {
+      favouriteItems.add(product);
       emit(AddFavouriteItemSuccessfullyState());
-    })
-        .catchError((error){
-          print(error.toString());
-          print(AddFavouriteItemErrorState());
+    }).catchError((error) {
+      print(error.toString());
+      print(AddFavouriteItemErrorState());
     });
   }
 
-  removeFavourite({required String productId}){
+  removeFavourite({required Products product}) {
     emit(RemoveFavouriteItemLoadingState());
-    DioHelper.PostData(url: removeFavouriteUrl,data: {
-      'product_id':productId
-    })
-        .then((value) {
-      getFavouriteItems();
-
+    return DioHelper.PostData(url: removeFavouriteUrl, data: {
+      'product_id': product.id,
+    }).then((value) {
+      favouriteItems.removeWhere((element) => element.id == product.id);
       emit(RemoveFavouriteItemSuccessfullyState());
-    })
-        .catchError((error){
+    }).catchError((error) {
       print(error.toString());
       print(RemoveFavouriteItemErrorState());
     });
   }
 
-  handleFavourite(int id){
-    if(checkFavourite(id)){
-      removeFavourite(productId: id.toString());
+  handleFavourite({required Products product}) {
+    if (checkFavourite(product.id!)) {
+      removeFavourite(product: product);
+    } else {
+      addFavourite(product: product);
     }
-    else{
-      addFavourite(productId: id.toString());
-    }
-    //getFavouriteItems();
-
   }
-
-
 }

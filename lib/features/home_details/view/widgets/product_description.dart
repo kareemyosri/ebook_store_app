@@ -1,18 +1,19 @@
 import 'package:book_store_app/core/Theme/styles.dart';
+import 'package:book_store_app/features/home/cubit/home_cubit.dart';
 import 'package:book_store_app/features/home/model/productModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
-
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
-     super.key,
-    required this.products,
+    super.key,
+    required this.product,
     required this.pressOnSeeMore,
   });
 
-  final Products products;
+  final Products product;
   final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -21,10 +22,9 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: Text(
-            products.name??"",
+            product.name ?? "",
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
@@ -34,7 +34,7 @@ class ProductDescription extends StatelessWidget {
             right: 64,
           ),
           child: Text(
-            products.category??"",
+            product.category ?? "",
             maxLines: 1,
             style: const TextStyle(color: AppTheme.kPrimaryColor),
           ),
@@ -42,27 +42,41 @@ class ProductDescription extends StatelessWidget {
         //SizedBox(height: 1.h,),
         Align(
           alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(4.w),
-            width: 64,
-
-            decoration: const BoxDecoration(
-              color:
-                  true ? Color(0xFFFFE6E6) : Color(0xFFF5F6F9),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
-            child: SvgPicture.asset(
-              "assets/icons/Heart Icon_2.svg",
-              color:
-                 true ? const Color(0xFFFF4848) : const Color(0xFFDBDEE4),
-              height: 20,
-            ),
+          child: BlocBuilder<HomeCubit, HomeState>(
+            buildWhen: (previous, current) =>
+                current is AddFavouriteItemSuccessfullyState ||
+                current is RemoveFavouriteItemSuccessfullyState,
+            builder: (context, state) {
+              return InkWell(
+                onTap: () =>
+                    HomeCubit.get(context).handleFavourite(product: product),
+                child: Container(
+                  padding: EdgeInsets.all(4.w),
+                  width: 64,
+                  decoration: BoxDecoration(
+                    color: HomeCubit.get(context).checkFavourite(product.id!)
+                        ? const Color(0xFFFFE6E6)
+                        : const Color(0xFFF5F6F9),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                  ),
+                  child: SvgPicture.asset(
+                    "assets/icons/Heart Icon_2.svg",
+                    color: HomeCubit.get(context).checkFavourite(product.id!)
+                        ? const Color(0xFFFF4848)
+                        : const Color(0xFFDBDEE4),
+                    height: 20,
+                  ),
+                ),
+              );
+            },
           ),
         ),
-        SizedBox(height: 1.h,),
+        SizedBox(
+          height: 1.h,
+        ),
 
         Padding(
           padding: EdgeInsets.only(
@@ -70,7 +84,7 @@ class ProductDescription extends StatelessWidget {
             right: 64,
           ),
           child: Text(
-            products.description??"",
+            product.description ?? "",
             maxLines: 3,
           ),
         ),
@@ -86,13 +100,14 @@ class ProductDescription extends StatelessWidget {
                 Text(
                   "See More Detail",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color:AppTheme.kPrimaryColor),
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.kPrimaryColor),
                 ),
                 SizedBox(width: 5),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 12,
-                  color:AppTheme.kPrimaryColor,
+                  color: AppTheme.kPrimaryColor,
                 ),
               ],
             ),
