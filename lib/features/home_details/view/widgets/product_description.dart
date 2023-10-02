@@ -42,15 +42,12 @@ class ProductDescription extends StatelessWidget {
         //SizedBox(height: 1.h,),
         Align(
           alignment: Alignment.centerRight,
-          child: BlocBuilder<HomeCubit, HomeState>(
-            buildWhen: (previous, current) =>
-                current is AddFavouriteItemSuccessfullyState ||
-                current is RemoveFavouriteItemSuccessfullyState,
-            builder: (context, state) {
-              return InkWell(
-                onTap: () =>
-                    HomeCubit.get(context).handleFavourite(product: product),
-                child: Container(
+          child: InkWell(
+            onTap: () =>
+                HomeCubit.get(context).handleFavourite(product: product),
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return Container(
                   padding: EdgeInsets.all(4.w),
                   width: 64,
                   decoration: BoxDecoration(
@@ -69,9 +66,9 @@ class ProductDescription extends StatelessWidget {
                         : const Color(0xFFDBDEE4),
                     height: 20,
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
         SizedBox(

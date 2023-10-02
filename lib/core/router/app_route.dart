@@ -1,5 +1,5 @@
 class AppRoute {
- // static const String splashScreen = "/";
+  // static const String splashScreen = "/";
   static const String onBoardingScreen = "/";
   static const String loginScreen = "LoginScreen";
   static const String registerScreen = "RegisterScreen";
@@ -13,6 +13,5 @@ class AppRoute {
   static const String changePasswordScreen = "ChangePasswordScreen";
   static const String cartScreen = "CartScreen";
   static const String orderScreen = "OrderScreen";
-
-
+  static const String searchScreen = "SearchScreen";
 }

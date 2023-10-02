@@ -10,6 +10,7 @@ import 'package:book_store_app/features/home_details/view/screen/details_screen.
 import 'package:book_store_app/features/login/view/screen/login_screen.dart';
 import 'package:book_store_app/features/onboarding/view/screen/onboarding_screen.dart';
 import 'package:book_store_app/features/place_order/view/screens/order_screen.dart';
+import 'package:book_store_app/features/search/view/search_screen.dart';
 import 'package:flutter/material.dart';
 import '../../features/profile/view/screens/my_account_screen.dart';
 import '../../features/profile/view/screens/profile_screen.dart';
@@ -27,10 +28,10 @@ Route? onGenerateRouter(RouteSettings settings) {
     case AppRoute.homeScreen:
       return MaterialPageRoute(builder: (_) => const HomeScreen());
     case AppRoute.productDetailsScreen:
-      final args=settings.arguments as Products ;
-      return MaterialPageRoute(builder: (_) =>  DetailsScreen(products: args));
+      final args = settings.arguments as Products;
+      return MaterialPageRoute(builder: (_) => DetailsScreen(products: args));
     case AppRoute.categoryScreen:
-      final args=settings.arguments as AllCategories ;
+      final args = settings.arguments as AllCategories;
       return MaterialPageRoute(builder: (_) => CategoryScreen(category: args));
 
     case AppRoute.favouriteScreen:
@@ -44,13 +45,11 @@ Route? onGenerateRouter(RouteSettings settings) {
     case AppRoute.changePasswordScreen:
       return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
     case AppRoute.cartScreen:
-      return MaterialPageRoute(builder: (_) =>  const CartScreen());
+      return MaterialPageRoute(builder: (_) => const CartScreen());
     case AppRoute.orderScreen:
-      return MaterialPageRoute(builder: (_) =>  const OrderScreen());
-
-
-
-
+      return MaterialPageRoute(builder: (_) => const OrderScreen());
+    case AppRoute.searchScreen:
+      return MaterialPageRoute(builder: (_) => const SearchScreen());
 
     // case AppRoute.layoutScreen:
     //   return MaterialPageRoute(builder: (_)=>  const LayoutScreen());

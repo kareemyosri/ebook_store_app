@@ -18,6 +18,4 @@ const String getGovernorateUrl = "/governorates";
 const String placeOrderUrl = "/place-order";
 const String addFavouriteUrl = "/add-to-wishlist";
 const String removeFavouriteUrl = "/remove-from-wishlist";
-
-
-
+const String searchProductUrl = "/products-search?name=";
