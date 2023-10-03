@@ -7,6 +7,9 @@ import 'package:book_store_app/features/onboarding/view/widgets/onboarding_conte
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/database/local_database/secure_cache.dart';
+import '../../../../core/enums.dart';
+
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 
@@ -73,6 +76,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             onPressed: () {
                               if (cubit.state.currentPage ==
                                   splashData.length - 1) {
+                                FlutterSecureStorageCache.write(
+                                    key: MySharedKeys.onBoarding,
+                                    value: 'true');
+
                                 Navigator.pushNamedAndRemoveUntil(context,
                                     AppRoute.loginScreen, (route) => false);
                               } else {

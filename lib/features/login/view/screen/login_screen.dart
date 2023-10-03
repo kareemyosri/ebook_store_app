@@ -185,11 +185,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
                               // if user wants to be remembered, then write his credits in the cache
-                              if (cubit.isChecked) {
+
                                 FlutterSecureStorageCache.write(
-                                    key: MySharedKeys.token,
-                                    value: cubit.loginModel?.data?.token);
-                              }
+                                    key: MySharedKeys.rememberMe,
+                                    value: '${cubit.isChecked}');
+
                               FlutterSecureStorageCache.write(
                                   key: MySharedKeys.token,
                                   value: cubit.loginModel?.data?.token);

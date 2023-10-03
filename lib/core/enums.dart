@@ -1,19 +1,11 @@
 enum MySharedKeys{
   email,
   password,
-  loginsuccess,
   token,
-  userType
+  rememberMe,
+  onBoarding
 }
 
 enum MenuState { home, favourite, books, profile }
 
 
-// enum TaskStates{
-//   newTask,
-//   processing,
-//   cOMPLETED,
-//   nOTCOMPLETED,
-//   cANCELLED,
-//   eXPIRED,
-// }
