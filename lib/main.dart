@@ -1,4 +1,5 @@
 import 'package:book_store_app/core/Theme/styles.dart';
+import 'package:book_store_app/features/Forgot_password/cubit/password_cubit.dart';
 import 'package:book_store_app/features/cart/cubit/cart_cubit.dart';
 import 'package:book_store_app/features/home_details/cubit/details_cubit.dart';
 import 'package:book_store_app/features/login/cubit/login_cubit.dart';
@@ -18,6 +19,7 @@ import 'core/database/local_database/cache_helper.dart';
 import 'core/database/local_database/secure_cache.dart';
 import 'core/database/remoteDatabase/DioHelper.dart';
 import 'core/router/app_router.dart';
+import 'features/Forgot_password/view/screens/success_ForgotPassword_screen.dart';
 import 'features/changePassword/cubit/changepassword_cubit.dart';
 import 'features/home/cubit/home_cubit.dart';
 import 'features/home/view/screens/home_screen.dart';
@@ -78,6 +80,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchCubit(),
         ),
+        BlocProvider(
+          create: (context) => PasswordCubit(),
+        ),
       ],
       child: Sizer(
         builder: (BuildContext context, Orientation orientation,
@@ -90,7 +95,7 @@ class MyApp extends StatelessWidget {
                   ColorScheme.fromSeed(seedColor: AppTheme.kPrimaryLightColor),
               useMaterial3: true,
             ),
-            //home: HomeScreen(),
+            //home: SuccessForgotPasswordScreen(),
             onGenerateRoute: onGenerateRouter,
           );
         },

@@ -119,6 +119,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ? const Icon(Icons.visibility_off_outlined)
                                     : const Icon(Icons.visibility_outlined),
                               ),
+                              suffixIconColor: MaterialStateColor.resolveWith((
+                                  states) =>
+                              states.contains(MaterialState.focused)
+                                  ? AppTheme.kPrimaryColor
+                                  : AppTheme.iconColor),
                               keyboardType: TextInputType.visiblePassword,
                               controller: passwordController,
                               hintText: 'Password',
@@ -156,6 +161,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ? const Icon(Icons.visibility_off_outlined)
                                     : const Icon(Icons.visibility_outlined),
                               ),
+                              suffixIconColor: MaterialStateColor.resolveWith((
+                                  states) =>
+                              states.contains(MaterialState.focused)
+                                  ? AppTheme.kPrimaryColor
+                                  : AppTheme.iconColor),
                               keyboardType: TextInputType.visiblePassword,
                               controller: confirmPasswordController,
                               hintText: 'Confirm Password',

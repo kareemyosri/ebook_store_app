@@ -21,4 +21,8 @@ const String removeFavouriteUrl = "/remove-from-wishlist";
 const String searchProductUrl = "/products-search?name=";
 const String orderHistoryUrl = "/order-history";
 const String showOrderUrl = "/order-history/";
-
+const String filterUrl = "/products-filter";
+const String requestResetCodeUrl = "/forget-password";
+const String verifyCodeUrl = "/check-forget-password";
+const String resetPasswordUrl = "/reset-password";
+const String logoutdUrl = "/logout";

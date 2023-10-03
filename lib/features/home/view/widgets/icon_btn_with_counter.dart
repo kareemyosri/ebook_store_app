@@ -32,33 +32,14 @@ class IconBtnWithCounter extends StatelessWidget {
               color: AppTheme.kSecondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: SvgPicture.asset(svgSrc),
+            child: SvgPicture.asset(svgSrc,
+                colorFilter: const ColorFilter.mode(
+                    AppTheme.kPrimaryColor
+                       ,
+                    BlendMode.srcIn)
+            ),
           ),
-          // if (numOfitem != 0)
-          //   Positioned(
-          //     top: -3,
-          //     right: 0,
-          //     child: Container(
-          //       height: getProportionateScreenWidth(16),
-          //       width: getProportionateScreenWidth(16),
-          //       decoration: BoxDecoration(
-          //         color: Color(0xFFFF4848),
-          //         shape: BoxShape.circle,
-          //         border: Border.all(width: 1.5, color: Colors.white),
-          //       ),
-          //       child: Center(
-          //         child: Text(
-          //           "$numOfitem",
-          //           style: TextStyle(
-          //             fontSize: getProportionateScreenWidth(10),
-          //             height: 1,
-          //             fontWeight: FontWeight.w600,
-          //             color: Colors.white,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   )
+
         ],
       ),
     );

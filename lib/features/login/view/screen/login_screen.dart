@@ -122,6 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? const Icon(Icons.visibility_off_outlined)
                                     : const Icon(Icons.visibility_outlined),
                               ),
+                              suffixIconColor: MaterialStateColor.resolveWith((
+                                  states) =>
+                              states.contains(MaterialState.focused)
+                                  ? AppTheme.kPrimaryColor
+                                  : AppTheme.iconColor),
                               keyboardType: TextInputType.visiblePassword,
                               controller: passwordController,
                               hintText: 'Password',
@@ -158,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const Text("Remember me"),
                             const Spacer(),
                             GestureDetector(
-                              // onTap: () => Navigator.pushNamedAndRemoveUntil(context, AppRoute.layoutScreen, (route) => false),
+                               onTap: () => Navigator.pushNamed(context, AppRoute.forgotPasswordScreen),
                               child: const Text(
                                 "Forgot Password",
                                 style: TextStyle(

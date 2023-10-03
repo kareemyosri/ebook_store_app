@@ -46,4 +46,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(state.copyWith(profileStatus: ProfileStatus.error));
     }
   }
+
+  void logout(){
+    //emit(RequestCodeLoading());
+    DioHelper.PostData(url: logoutdUrl)
+        .then((value) {
+     // emit(RequestCodeSuccess());
+    }).catchError((error){
+     // emit(RequestCodeError());
+
+    });
+  }
 }

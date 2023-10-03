@@ -16,3 +16,10 @@ final class SearchLoaded extends SearchState {}
 final class SearchEmpty extends SearchState {}
 
 final class SearchError extends SearchState {}
+
+final class FilterLoading extends SearchState {}
+final class FilterSuccess extends SearchState {}
+final class FilterError extends SearchState {}
+
+final class ChangeRangeValues extends SearchState {}
+
