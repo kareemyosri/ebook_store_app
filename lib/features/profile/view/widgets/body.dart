@@ -56,14 +56,14 @@ class _BodyState extends State<Body> {
           ),
           ProfileMenu(
             text: "Change Password",
-            icon: "assets/icons/Bell.svg",
+            icon: "assets/icons/change-password-icon.svg",
             press: () {
               Navigator.pushNamed(context, AppRoute.changePasswordScreen);
             },
           ),
           ProfileMenu(
             text: "Order History",
-            icon: "assets/icons/Settings.svg",
+            icon: "assets/icons/orders-icon.svg",
             press: () {
               Navigator.pushNamed(context, AppRoute.orderHistoryScreen);
 

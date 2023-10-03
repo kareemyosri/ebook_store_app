@@ -62,7 +62,10 @@ class _FavouriteScreenBodyState extends State<FavouriteScreenBody> {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is GetFavouriteItemsErrorState) {
                       return const Center(child: Text('Error getting data'));
+                    } else if (cubit.favouriteItems.isEmpty) {
+                      return const Center(child: Text('No Favorites Found'));
                     }
+
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,

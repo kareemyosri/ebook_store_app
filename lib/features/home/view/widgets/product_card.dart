@@ -64,9 +64,9 @@ class _ProductCardState extends State<ProductCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${widget.product.priceAfterDiscount}",
-                    style: TextStyle(
-                      fontSize: 18.sp,
+                    "${widget.product.priceAfterDiscount} L.E",
+                    style: const TextStyle(
+
                       fontWeight: FontWeight.w600,
                       color: AppTheme.kPrimaryColor,
                     ),

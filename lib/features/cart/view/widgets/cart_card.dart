@@ -49,11 +49,11 @@ class CartCard extends StatelessWidget {
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: AppTheme.kPrimaryColor),
-                  children: [
-                    TextSpan(
-                        text: " x${item.itemProductStock}",
-                        style: Theme.of(context).textTheme.bodyMedium),
-                  ],
+                  // children: [
+                  //   TextSpan(
+                  //       text: " x${item.itemProductStock}",
+                  //       style: Theme.of(context).textTheme.bodyMedium),
+                  // ],
                 ),
               ),
               const SizedBox(height: 10),

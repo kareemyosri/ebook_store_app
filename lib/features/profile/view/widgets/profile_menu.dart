@@ -30,8 +30,9 @@ class ProfileMenu extends StatelessWidget {
           children: [
             SvgPicture.asset(
               icon,
-              color:AppTheme.kPrimaryColor,
+              colorFilter: const ColorFilter.mode(AppTheme.kPrimaryColor, BlendMode.srcIn),
               width: 22,
+              height: 22,
             ),
             const SizedBox(width: 20),
             Expanded(child: Text(text,style: const TextStyle(color: AppTheme.kTextColor),)),

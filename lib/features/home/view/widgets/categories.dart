@@ -1,3 +1,4 @@
+import 'package:book_store_app/core/Theme/styles.dart';
 import 'package:book_store_app/core/router/app_route.dart';
 import 'package:book_store_app/features/category/view/screens/category_screen.dart';
 import 'package:book_store_app/features/home/cubit/home_cubit.dart';
@@ -25,9 +26,9 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
+      {"icon": "assets/icons/web-page-source-code-icon.svg", "text": "Flash Deal"},
+      {"icon": "assets/icons/information-technology-icon.svg", "text": "Bill"},
+      {"icon": "assets/icons/robot-line-icon.svg", "text": "Game"},
       // {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
       // {"icon": "assets/icons/Discover.svg", "text": "More"},
     ];
@@ -79,7 +80,9 @@ class CategoryCard extends StatelessWidget {
                 color: const Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SvgPicture.asset(icon),
+              child: SvgPicture.asset(icon,
+                  colorFilter: const ColorFilter.mode(AppTheme.kPrimaryColor, BlendMode.srcIn)
+              ),
             ),
             SizedBox(height: 0.5.h),
             Text(allCategories.name ?? "", textAlign: TextAlign.center)

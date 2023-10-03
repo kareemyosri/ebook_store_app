@@ -42,9 +42,12 @@ class CustomBottomNavBar extends StatelessWidget {
               IconButton(
                 icon: SvgPicture.asset(
                   "assets/icons/Shop Icon.svg",
-                  color: MenuState.home == selectedMenu
-                      ? AppTheme.kPrimaryColor
-                      : inActiveIconColor,
+                  colorFilter: ColorFilter.mode(
+                      MenuState.home == selectedMenu
+                          ? AppTheme.kPrimaryColor
+                          : inActiveIconColor,
+                      BlendMode.srcIn)
+
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.homeScreen);
@@ -53,9 +56,11 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg",
-                  color: MenuState.favourite == selectedMenu
-                      ? AppTheme.kPrimaryColor
-                      : inActiveIconColor,
+                    colorFilter: ColorFilter.mode(
+                        MenuState.favourite == selectedMenu
+                            ? AppTheme.kPrimaryColor
+                            : inActiveIconColor,
+                        BlendMode.srcIn)
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.favouriteScreen);
@@ -68,9 +73,11 @@ class CustomBottomNavBar extends StatelessWidget {
                   fit: BoxFit.cover,
                   height: 20,
                   width: 22,
-                  color: MenuState.books == selectedMenu
-                      ? AppTheme.kPrimaryColor
-                      : inActiveIconColor,
+                    colorFilter: ColorFilter.mode(
+                        MenuState.books == selectedMenu
+                            ? AppTheme.kPrimaryColor
+                            : inActiveIconColor,
+                        BlendMode.srcIn)
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.allBooksScreen);
@@ -81,9 +88,11 @@ class CustomBottomNavBar extends StatelessWidget {
               IconButton(
                 icon: SvgPicture.asset(
                   "assets/icons/User Icon.svg",
-                  color: MenuState.profile == selectedMenu
-                      ? AppTheme.kPrimaryColor
-                      : inActiveIconColor,
+                    colorFilter: ColorFilter.mode(
+                        MenuState.profile == selectedMenu
+                            ? AppTheme.kPrimaryColor
+                            : inActiveIconColor,
+                        BlendMode.srcIn)
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.profileScreen);

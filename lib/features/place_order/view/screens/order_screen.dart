@@ -80,8 +80,8 @@ class _OrderScreenBodyState extends State<OrderScreenBody> {
           } else if (state is CheckoutError) {
             return const Center(child: Text('Error getting data'));
           }
-          addressController.text=cubit.checkoutModel!.data!.user!.address!;
-          phoneController.text=cubit.checkoutModel!.data!.user!.phone!;
+          //addressController.text=cubit.checkoutModel!.data!.user!.address!;
+         // phoneController.text=cubit.checkoutModel!.data!.user!.phone!;
           return Padding(
             padding:  EdgeInsets.all(4.w),
             child: SingleChildScrollView(

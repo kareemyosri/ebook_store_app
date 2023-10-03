@@ -8,6 +8,7 @@ import 'package:book_store_app/features/onboarding/view/screen/onboarding_screen
 import 'package:book_store_app/features/profile/cubit/profile_cubit.dart';
 import 'package:book_store_app/features/register/cubit/register_cubit.dart';
 import 'package:book_store_app/features/search/cubit/search_cubit.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -28,7 +29,17 @@ void main() {
   Bloc.observer = MyBlocObserver();
   CashHelper.init();
   DioHelper.init();
-  runApp(const MyApp());
+  runApp(
+    // DevicePreview(
+    //   //enabled: !kReleaseMode,
+    //     tools: const [
+    //       ...DevicePreview.defaultTools
+    //     ],
+    //     builder: (BuildContext context) => const MyApp() ,
+    //     ),
+
+      const MyApp()
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -70,7 +81,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Sizer(
         builder: (BuildContext context, Orientation orientation,
-            DeviceType deviceType) {
+             deviceType) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
 
