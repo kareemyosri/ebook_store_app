@@ -1,11 +1,12 @@
 import 'package:book_store_app/core/Theme/styles.dart';
 import 'package:book_store_app/core/router/app_route.dart';
+import 'package:book_store_app/features/profile/cubit/profile_cubit.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/enums.dart';
-
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
@@ -40,19 +41,16 @@ class CustomBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/Shop Icon.svg",
-                  colorFilter: ColorFilter.mode(
-                      MenuState.home == selectedMenu
-                          ? AppTheme.kPrimaryColor
-                          : inActiveIconColor,
-                      BlendMode.srcIn)
-
-                ),
+                icon: SvgPicture.asset("assets/icons/Shop Icon.svg",
+                    colorFilter: ColorFilter.mode(
+                        MenuState.home == selectedMenu
+                            ? AppTheme.kPrimaryColor
+                            : inActiveIconColor,
+                        BlendMode.srcIn)),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.homeScreen);
                 },
-                   // Navigator.pushNamed(context, HomeScreen.routeName),
+                // Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg",
@@ -60,45 +58,35 @@ class CustomBottomNavBar extends StatelessWidget {
                         MenuState.favourite == selectedMenu
                             ? AppTheme.kPrimaryColor
                             : inActiveIconColor,
-                        BlendMode.srcIn)
-                ),
+                        BlendMode.srcIn)),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.favouriteScreen);
-
-
                 },
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/read-book-icon.svg",
-                  fit: BoxFit.cover,
-                  height: 20,
-                  width: 22,
+                    fit: BoxFit.cover,
+                    height: 20,
+                    width: 22,
                     colorFilter: ColorFilter.mode(
                         MenuState.books == selectedMenu
                             ? AppTheme.kPrimaryColor
                             : inActiveIconColor,
-                        BlendMode.srcIn)
-                ),
+                        BlendMode.srcIn)),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.allBooksScreen);
-
-
                 },
               ),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
+                icon: SvgPicture.asset("assets/icons/User Icon.svg",
                     colorFilter: ColorFilter.mode(
                         MenuState.profile == selectedMenu
                             ? AppTheme.kPrimaryColor
                             : inActiveIconColor,
-                        BlendMode.srcIn)
-                ),
+                        BlendMode.srcIn)),
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoute.profileScreen);
-
                 },
-
               ),
             ],
           )),
