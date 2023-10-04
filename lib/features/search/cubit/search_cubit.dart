@@ -16,8 +16,9 @@ class SearchCubit extends Cubit<SearchState> {
   static SearchCubit get(context) => BlocProvider.of(context);
 
   bool isSearching = false;
-
+  late String searchKey;
   void searchTextChanged(String text) {
+    searchKey = text;
     if (text.isEmpty) {
       isSearching = false;
     } else {
@@ -26,7 +27,7 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   List<Products> foundResults = [];
-  void searchProduct({required String name}) {
+  void searchProduct({required name}) {
     foundResults.clear();
     searchTextChanged(name);
     emit(SearchLoading());
@@ -47,32 +48,32 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   fetchDataWithFilters({
-    String? search,
     String? isBestSeller,
     String? categoryId,
     String? limit,
   }) {
     foundResults.clear();
 
-    emit(FilterLoading());
+    emit(SearchLoading());
     DioHelper.getData(
       url: filterUrl,
       query: {
-        'min': selectedRange.end,
-        'max': selectedRange.start,
-        'search': search,
-        'is_bestseller': isBestSeller ?? 0,
+        'min': selectedRange.start,
+        'max': selectedRange.end,
+        'search': searchKey,
+        'is_bestseller': isBestSeller ?? 1,
         'category_id': selectedCategoryId,
         'limit': limit ?? 3,
       },
     ).then((value) {
+      print(value.data);
       for (var product in value.data['data']['products']) {
         foundResults.add(Products.fromJson(product));
       }
       if (foundResults.isEmpty) {
         emit(SearchEmpty());
       } else {
-        emit(FilterSuccess());
+        emit(SearchLoaded());
       }
     }).catchError((error) {
       print(error.toString());

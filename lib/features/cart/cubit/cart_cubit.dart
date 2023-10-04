@@ -21,7 +21,11 @@ class CartCubit extends Cubit<CartState> {
       for (var element in value.data['data']['cart_items']) {
         cartItems.add(CartItems.fromJson(element));
       }
-      emit(GetCartItemsSuccessfullyState());
+      if (cartItems.isEmpty) {
+        emit(GetCartItemsEmptyState());
+      } else {
+        emit(GetCartItemsSuccessfullyState());
+      }
     }).catchError((error) {
       print(error.toString());
       emit(GetCartItemsErrorState());

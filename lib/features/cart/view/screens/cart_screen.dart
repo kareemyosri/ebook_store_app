@@ -1,4 +1,5 @@
 import 'package:book_store_app/features/cart/cubit/cart_cubit.dart';
+import 'package:book_store_app/features/cart/view/widgets/no_items_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/body.dart';
@@ -36,7 +37,14 @@ class _CartScreenBodyState extends State<CartScreenBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: const Body(),
+      body: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          if (state is GetCartItemsEmptyState) {
+            return const EmptyResultsScreen();
+          }
+          return const Body();
+        },
+      ),
       bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           return Visibility(
