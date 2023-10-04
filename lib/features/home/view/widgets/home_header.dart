@@ -128,51 +128,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // const Text(
-                  //   "Color",
-                  //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  // ),
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-                  // SizedBox(
-                  //   height: 60,
-                  //   child: ListView.builder(
-                  //     scrollDirection: Axis.horizontal,
-                  //     itemCount: colors.length,
-                  //     itemBuilder: (context, index) {
-                  //       return GestureDetector(
-                  //         onTap: () {
-                  //           setState(() {
-                  //             _selectedColor = index;
-                  //           });
-                  //         },
-                  //         child: AnimatedContainer(
-                  //           duration: const Duration(milliseconds: 300),
-                  //           margin: const EdgeInsets.only(right: 10),
-                  //           decoration: BoxDecoration(
-                  //               color: _selectedColor == index
-                  //                   ? colors[index]
-                  //                   : colors[index].withOpacity(0.5),
-                  //               shape: BoxShape.circle),
-                  //           width: 40,
-                  //           height: 40,
-                  //           child: Center(
-                  //             child: _selectedColor == index
-                  //                 ? const Icon(
-                  //                     Icons.check,
-                  //                     color: Colors.white,
-                  //                   )
-                  //                 : Container(),
-                  //           ),
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -249,14 +205,14 @@ class _HomeHeaderState extends State<HomeHeader> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '\$ ${cubit.selectedRange.start.toStringAsFixed(2)}',
+                            '${cubit.selectedRange.start.toStringAsFixed(2)} L.E',
                             style: TextStyle(
                                 color: Colors.grey.shade500, fontSize: 12),
                           ),
                           Text(" - ",
                               style: TextStyle(color: Colors.grey.shade500)),
                           Text(
-                            '\$ ${cubit.selectedRange.end.toStringAsFixed(2)}',
+                            '${cubit.selectedRange.end.toStringAsFixed(2)} L.E',
                             style: TextStyle(
                                 color: Colors.grey.shade500, fontSize: 12),
                           ),
@@ -277,8 +233,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                           inactiveColor: Colors.grey.shade300,
                           activeColor: AppTheme.kPrimaryColor,
                           labels: RangeLabels(
-                            '\$ ${cubit.selectedRange.start.toStringAsFixed(2)}',
-                            '\$ ${cubit.selectedRange.end.toStringAsFixed(2)}',
+                            '${cubit.selectedRange.start.toStringAsFixed(2)} L.E',
+                            '${cubit.selectedRange.end.toStringAsFixed(2)} L.E',
                           ),
                           onChanged: (RangeValues values) {
                             print(values.start);

@@ -1,6 +1,7 @@
+import 'package:book_store_app/core/database/local_database/secure_cache.dart';
+import 'package:book_store_app/core/enums.dart';
 import 'package:book_store_app/core/router/app_route.dart';
 import 'package:book_store_app/features/profile/cubit/profile_cubit.dart';
-import 'package:book_store_app/features/profile/view/screens/my_account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -79,10 +80,28 @@ class _BodyState extends State<Body> {
             icon: "assets/icons/Question mark.svg",
             press: () {},
           ),
-          ProfileMenu(
-            text: "Log Out",
-            icon: "assets/icons/Log out.svg",
-            press: () => ProfileCubit.get(context).logout(),
+          BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state.logOutStatus == LogOutStatus.success ) {
+                FlutterSecureStorageCache.delete(key: MySharedKeys.token).then((value) {
+                  Navigator.pushNamedAndRemoveUntil(context, AppRoute.loginScreen, (route) => false);
+
+                });
+              }
+              if (state.logOutStatus == LogOutStatus.error ) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Something went wrong!')),
+                );
+              }
+            },
+            builder: (context, state) {
+              return ProfileMenu(
+                text: "Log Out",
+                icon: "assets/icons/Log out.svg",
+                press: () => cubit.logout(),
+              );
+            },
           ),
         ],
       ),
