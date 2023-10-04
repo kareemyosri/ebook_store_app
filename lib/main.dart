@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             // builder: (context, child) {},
-            //home: SuccessForgotPasswordScreen(),
+            // home: const SuccessForgotPasswordScreen(),
             onGenerateRoute: onGenerateRouter,
           );
         },
