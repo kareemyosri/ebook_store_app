@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-
 class MyAccountScreenBody extends StatefulWidget {
   const MyAccountScreenBody({super.key});
   @override
@@ -19,6 +18,7 @@ class MyAccountScreenBody extends StatefulWidget {
 class _MyAccountScreenBodyState extends State<MyAccountScreenBody> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final cityController = TextEditingController();
   late ProfileCubit cubit;
@@ -31,18 +31,19 @@ class _MyAccountScreenBodyState extends State<MyAccountScreenBody> {
     print("user: ${user.name}");
     nameController.text = user.name;
     emailController.text = user.email;
+    if (user.phone != null) {
+      phoneController.text = user.phone!;
+    }
     if (user.address != null) {
       addressController.text = user.address!;
     }
     if (user.city != null) {
       cityController.text = user.city!;
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Profile"),
@@ -108,6 +109,21 @@ class _MyAccountScreenBodyState extends State<MyAccountScreenBody> {
               ),
               CustomTextFormField(
                 autoValidateMode: AutovalidateMode.onUserInteraction,
+                labelText: 'Phone',
+                controller: addressController,
+                hintText: 'Phone',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'phone must not be empty';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              CustomTextFormField(
+                autoValidateMode: AutovalidateMode.onUserInteraction,
                 labelText: 'City',
                 controller: cityController,
                 hintText: 'City',
@@ -151,6 +167,7 @@ class _MyAccountScreenBodyState extends State<MyAccountScreenBody> {
                           cubit.updateUserData(
                             name: nameController.text,
                             email: emailController.text,
+                            phone: phoneController.text,
                             address: addressController.text,
                             city: cityController.text,
                           );

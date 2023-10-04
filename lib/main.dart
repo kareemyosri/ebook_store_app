@@ -32,16 +32,15 @@ void main() {
   CashHelper.init();
   DioHelper.init();
   runApp(
-    // DevicePreview(
-    //   //enabled: !kReleaseMode,
-    //     tools: const [
-    //       ...DevicePreview.defaultTools
-    //     ],
-    //     builder: (BuildContext context) => const MyApp() ,
-    //     ),
+      // DevicePreview(
+      //   //enabled: !kReleaseMode,
+      //     tools: const [
+      //       ...DevicePreview.defaultTools
+      //     ],
+      //     builder: (BuildContext context) => const MyApp() ,
+      //     ),
 
-      const MyApp()
-  );
+      const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -85,8 +84,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Sizer(
-        builder: (BuildContext context, Orientation orientation,
-             deviceType) {
+        builder: (BuildContext context, Orientation orientation, deviceType) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
 
@@ -95,6 +93,7 @@ class MyApp extends StatelessWidget {
                   ColorScheme.fromSeed(seedColor: AppTheme.kPrimaryLightColor),
               useMaterial3: true,
             ),
+            // builder: (context, child) {},
             //home: SuccessForgotPasswordScreen(),
             onGenerateRoute: onGenerateRouter,
           );

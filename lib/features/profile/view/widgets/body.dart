@@ -29,7 +29,7 @@ class _BodyState extends State<Body> {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-           const ProfilePic(action: ProfileAction.edit),
+          const ProfilePic(action: ProfileAction.edit),
           const SizedBox(height: 10),
           BlocBuilder<ProfileCubit, ProfileState>(
             //buildWhen: (previous,current)=>,
@@ -52,7 +52,8 @@ class _BodyState extends State<Body> {
           ProfileMenu(
             text: "My Account",
             icon: "assets/icons/User Icon.svg",
-            press: () => Navigator.pushNamed(context, AppRoute.accountDetailsScreen),
+            press: () =>
+                Navigator.pushNamed(context, AppRoute.accountDetailsScreen),
           ),
           ProfileMenu(
             text: "Change Password",
@@ -66,7 +67,6 @@ class _BodyState extends State<Body> {
             icon: "assets/icons/orders-icon.svg",
             press: () {
               Navigator.pushNamed(context, AppRoute.orderHistoryScreen);
-
             },
           ),
           ProfileMenu(
@@ -82,7 +82,7 @@ class _BodyState extends State<Body> {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () => ProfileCubit.get(context).logout(),
           ),
         ],
       ),

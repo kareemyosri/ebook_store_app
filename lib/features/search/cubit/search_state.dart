@@ -18,8 +18,15 @@ final class SearchEmpty extends SearchState {}
 final class SearchError extends SearchState {}
 
 final class FilterLoading extends SearchState {}
+
 final class FilterSuccess extends SearchState {}
+
 final class FilterError extends SearchState {}
 
-final class ChangeRangeValues extends SearchState {}
+final class ChangeCatergoryLoading extends SearchState {}
 
+final class ChangeCatergoryChanged extends SearchState {}
+
+final class ChangeRangeValuesLoading extends SearchState {}
+
+final class ChangeRangeValuesChanged extends SearchState {}

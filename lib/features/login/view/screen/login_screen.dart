@@ -122,11 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? const Icon(Icons.visibility_off_outlined)
                                     : const Icon(Icons.visibility_outlined),
                               ),
-                              suffixIconColor: MaterialStateColor.resolveWith((
-                                  states) =>
-                              states.contains(MaterialState.focused)
-                                  ? AppTheme.kPrimaryColor
-                                  : AppTheme.iconColor),
+                              suffixIconColor: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      states.contains(MaterialState.focused)
+                                          ? AppTheme.kPrimaryColor
+                                          : AppTheme.iconColor),
                               keyboardType: TextInputType.visiblePassword,
                               controller: passwordController,
                               hintText: 'Password',
@@ -163,7 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             const Text("Remember me"),
                             const Spacer(),
                             GestureDetector(
-                               onTap: () => Navigator.pushNamed(context, AppRoute.forgotPasswordScreen),
+                              onTap: () => Navigator.pushNamed(
+                                  context, AppRoute.forgotPasswordScreen),
                               child: const Text(
                                 "Forgot Password",
                                 style: TextStyle(
@@ -186,9 +187,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                               // if user wants to be remembered, then write his credits in the cache
 
-                                FlutterSecureStorageCache.write(
-                                    key: MySharedKeys.rememberMe,
-                                    value: '${cubit.isChecked}');
+                              FlutterSecureStorageCache.write(
+                                  key: MySharedKeys.rememberMe,
+                                  value: '${cubit.isChecked}');
 
                               FlutterSecureStorageCache.write(
                                   key: MySharedKeys.token,

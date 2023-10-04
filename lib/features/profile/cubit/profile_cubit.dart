@@ -1,5 +1,8 @@
+import 'package:book_store_app/core/database/local_database/cache_helper.dart';
+import 'package:book_store_app/core/database/local_database/secure_cache.dart';
 import 'package:book_store_app/core/database/remoteDatabase/DioHelper.dart';
 import 'package:book_store_app/core/database/remoteDatabase/endpoints.dart';
+import 'package:book_store_app/core/enums.dart';
 import 'package:book_store_app/features/profile/model/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -28,12 +31,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   void updateUserData({
     required String name,
     required String email,
+    required String phone,
     required String address,
     required String city,
   }) async {
     emit(state.copyWith(profileStatus: ProfileStatus.loading));
-    ProfileModel userUpdated = state.user
-        .copyWith(name: name, email: email, address: address, city: city);
+    ProfileModel userUpdated = state.user.copyWith(
+        name: name, email: email, phone: phone, address: address, city: city);
     try {
       DioHelper.PostData(url: updateProfileUrl, data: userUpdated.toMap())
           .then((value) {
@@ -47,14 +51,13 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void logout(){
-    //emit(RequestCodeLoading());
-    DioHelper.PostData(url: logoutdUrl)
-        .then((value) {
-     // emit(RequestCodeSuccess());
-    }).catchError((error){
-     // emit(RequestCodeError());
-
+  void logout() {
+    emit(state.copyWith(logOutStatus: LogOutStatus.loading));
+    DioHelper.PostData(url: logoutdUrl).then((value) async {
+      await FlutterSecureStorageCache.delete(key: MySharedKeys.token);
+      emit(state.copyWith(logOutStatus: LogOutStatus.success));
+    }).catchError((error) {
+      emit(state.copyWith(logOutStatus: LogOutStatus.error));
     });
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:book_store_app/core/database/remoteDatabase/DioHelper.dart';
 import 'package:book_store_app/core/database/remoteDatabase/endpoints.dart';
 import 'package:book_store_app/features/home/model/productModel.dart';
@@ -9,7 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit() : super(SearchInitial());
+  SearchCubit() : super(SearchInitial()) {
+    minRange = 0;
+    maxRange = 1000;
+    selectedRange = RangeValues(minRange, maxRange);
+  }
   static SearchCubit get(context) => BlocProvider.of(context);
 
   bool isSearching = false;
@@ -44,27 +47,25 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   fetchDataWithFilters({
-    String? max,
-    String? min,
     String? search,
     String? isBestSeller,
     String? categoryId,
     String? limit,
-  })  {
+  }) {
     foundResults.clear();
 
     emit(FilterLoading());
-    DioHelper.getData(url: filterUrl
-        ,query:{
-        'max': max,
-        'min': min,
+    DioHelper.getData(
+      url: filterUrl,
+      query: {
+        'min': selectedRange.end,
+        'max': selectedRange.start,
         'search': search,
-        'is_bestseller': isBestSeller,
-        'category_id': categoryId,
-        'limit': limit,
-      },)
-
-        .then((value) {
+        'is_bestseller': isBestSeller ?? 0,
+        'category_id': selectedCategoryId,
+        'limit': limit ?? 3,
+      },
+    ).then((value) {
       for (var product in value.data['data']['products']) {
         foundResults.add(Products.fromJson(product));
       }
@@ -73,21 +74,29 @@ class SearchCubit extends Cubit<SearchState> {
       } else {
         emit(FilterSuccess());
       }
-    })
-        .catchError((error){
-          print(error.toString());
-          emit(FilterError());
+    }).catchError((error) {
+      print(error.toString());
+      emit(FilterError());
     });
   }
 
+  //Filter Settings
 
-  RangeValues selectedRange =  const RangeValues(0, 1000);
-
-  changeRange(RangeValues values){
-   // emit(ChangeRangeValues());
-
-    selectedRange=values;
-    emit(ChangeRangeValues());
+  int selectedCategoryId = 0;
+  int selectedCategoryIndex = 0;
+  void changeCatergory(int index, int cateId) {
+    emit(ChangeCatergoryLoading());
+    selectedCategoryId = cateId;
+    selectedCategoryIndex = index;
+    emit(ChangeCatergoryChanged());
   }
-    
+
+  late double minRange;
+  late double maxRange;
+  late RangeValues selectedRange;
+  void changeRange(RangeValues values) {
+    emit(ChangeRangeValuesLoading());
+    selectedRange = values;
+    emit(ChangeRangeValuesChanged());
+  }
 }
