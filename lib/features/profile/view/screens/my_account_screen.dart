@@ -110,7 +110,7 @@ class _MyAccountScreenBodyState extends State<MyAccountScreenBody> {
               CustomTextFormField(
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 labelText: 'Phone',
-                controller: addressController,
+                controller: phoneController,
                 hintText: 'Phone',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
