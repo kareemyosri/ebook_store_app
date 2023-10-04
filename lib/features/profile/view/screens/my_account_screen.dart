@@ -28,7 +28,6 @@ class _MyAccountScreenBodyState extends State<MyAccountScreenBody> {
     cubit = ProfileCubit.get(context);
 
     final ProfileModel user = cubit.state.user;
-    print("user: ${user.name}");
     nameController.text = user.name;
     emailController.text = user.email;
     if (user.phone != null) {

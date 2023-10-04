@@ -37,7 +37,12 @@ class _CartScreenBodyState extends State<CartScreenBody> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: const Body(),
-      bottomNavigationBar: const CheckoutCard(),
+      bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          return Visibility(
+              visible: cubit.cartItems.isNotEmpty, child: const CheckoutCard());
+        },
+      ),
     );
   }
 
