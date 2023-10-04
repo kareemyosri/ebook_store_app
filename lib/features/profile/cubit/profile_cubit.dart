@@ -3,6 +3,7 @@ import 'package:book_store_app/core/database/local_database/secure_cache.dart';
 import 'package:book_store_app/core/database/remoteDatabase/DioHelper.dart';
 import 'package:book_store_app/core/database/remoteDatabase/endpoints.dart';
 import 'package:book_store_app/core/enums.dart';
+import 'package:book_store_app/features/home/cubit/home_cubit.dart';
 import 'package:book_store_app/features/profile/model/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -56,8 +57,16 @@ class ProfileCubit extends Cubit<ProfileState> {
     DioHelper.PostData(url: logoutdUrl).then((value) async {
       await FlutterSecureStorageCache.delete(key: MySharedKeys.token);
       emit(state.copyWith(logOutStatus: LogOutStatus.success));
+      close();
     }).catchError((error) {
       emit(state.copyWith(logOutStatus: LogOutStatus.error));
     });
   }
+
+  @override
+  Future<void> close() {
+    return super.close();
+  }
+
+
 }

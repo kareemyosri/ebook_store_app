@@ -31,6 +31,8 @@ class OrderScreenBody extends StatefulWidget {
 class _OrderScreenBodyState extends State<OrderScreenBody> {
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
+  final formnKey = GlobalKey<FormState>();
+
   late OrderCubit cubit;
 
   @override
@@ -85,80 +87,89 @@ class _OrderScreenBodyState extends State<OrderScreenBody> {
           return Padding(
             padding:  EdgeInsets.all(4.w),
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 1.h,),
-                  CustomTextFormField(
-                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                    labelText: 'Address',
-                    controller: addressController,
-                    hintText: 'Address',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'address must not be empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextFormField(
-                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                    labelText: 'Phone',
-                    controller: phoneController,
-                    hintText: 'Phone',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'address must not be empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
+              child: Form(
+                key: formnKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 1.h,),
+                    CustomTextFormField(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      labelText: 'Address',
+                      controller: addressController,
+                      hintText: 'Address',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'address must not be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    CustomTextFormField(
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      labelText: 'Phone',
+                      controller: phoneController,
+                      hintText: 'Phone',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'phone must not be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
 
-                  DropdownButtonFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Select Governorate',
-                        border: OutlineInputBorder(),
-                      ),
-                      items: cubit.governorates
-                          .map((item) =>
-                          DropdownMenuItem<String>(
-                            value: item.id.toString(),
-                            child: Text(item.governorateNameEn!),
-                          ))
-                          .toList(),
+                    DropdownButtonFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Select Governorate';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Select Governorate',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: cubit.governorates
+                            .map((item) =>
+                            DropdownMenuItem<String>(
+                              value: item.id.toString(),
+                              child: Text(item.governorateNameEn!),
+                            ))
+                            .toList(),
 
-                      onChanged: (value) {
-                        cubit.updateId(value!);
-                      }),
-                  SizedBox(height: 1.h,),
-                  Text('Summary',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                  ),
+                        onChanged: (value) {
+                          cubit.updateId(value!);
+                        }),
+                    SizedBox(height: 1.h,),
+                    Text('Summary',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                    ),
 
-                  ListView.separated(
-                    shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) =>
-                          SummaryItem(item: cubit.items[index],),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 2.h,),
-                      itemCount: cubit.items.length),
+                    ListView.separated(
+                      shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) =>
+                            SummaryItem(item: cubit.items[index],),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 2.h,),
+                        itemCount: cubit.items.length),
 
 
 
-                ],
+                  ],
+                ),
               ),
             ),
           );
         },
       ),
-      bottomNavigationBar:   PlaceOrder(phoneController: phoneController, addressController: addressController,),
+      bottomNavigationBar:   PlaceOrder( formkey: formnKey , phoneController: phoneController, addressController: addressController,),
     );
   }
 }

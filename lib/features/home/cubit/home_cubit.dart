@@ -137,4 +137,9 @@ class HomeCubit extends Cubit<HomeState> {
       addFavourite(product: product);
     }
   }
+  @override
+  Future<void> close() {
+    // TODO: implement close
+    return super.close();
+  }
 }

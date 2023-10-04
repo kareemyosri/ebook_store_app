@@ -67,9 +67,9 @@ class MyApp extends StatelessWidget {
             ..getFavouriteItems()
             ..getAllCategories(),
         ),
-        BlocProvider(
-          create: (context) => ProfileCubit(),
-        ),
+        // BlocProvider(
+        //   create: (context) => ProfileCubit(),
+        // ),
         BlocProvider(
           create: (context) => DetailsCubit(),
         ),

@@ -1,10 +1,7 @@
-import 'package:book_store_app/core/Theme/styles.dart';
-import 'package:book_store_app/core/router/app_route.dart';
-import 'package:book_store_app/features/cart/cubit/cart_cubit.dart';
+
 import 'package:book_store_app/features/place_order/cubit/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../login/view/widgets/DefaultButton.dart';
@@ -13,8 +10,9 @@ class PlaceOrder extends StatefulWidget {
   const PlaceOrder({
     super.key,
     required this.phoneController,
-    required this.addressController,
+    required this.addressController, required this.formkey,
   });
+  final GlobalKey<FormState>  formkey;
 
   final TextEditingController phoneController;
   final TextEditingController addressController;
@@ -94,9 +92,12 @@ class _PlaceOrderState extends State<PlaceOrder> {
                       child: DefaultButton(
                         text: "Order Now",
                         onPressed: () {
-                          cubit.placeOrder(
-                              phone: widget.phoneController.text,
-                              address: widget.addressController.text);
+                          if(widget.formkey.currentState!.validate()){
+                            FocusScope.of(context).unfocus();
+                            cubit.placeOrder(
+                                phone: widget.phoneController.text,
+                                address: widget.addressController.text);
+                          }
                           //    Navigator.pushNamed(context, AppRoute.orderScreen);
                         },
                       ),

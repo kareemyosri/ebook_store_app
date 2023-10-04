@@ -83,10 +83,8 @@ class _BodyState extends State<Body> {
           BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) {
               if (state.logOutStatus == LogOutStatus.success ) {
-                FlutterSecureStorageCache.delete(key: MySharedKeys.token).then((value) {
-                  Navigator.pushNamedAndRemoveUntil(context, AppRoute.loginScreen, (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context, AppRoute.loginScreen, (route) => false);
 
-                });
               }
               if (state.logOutStatus == LogOutStatus.error ) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -96,10 +94,13 @@ class _BodyState extends State<Body> {
               }
             },
             builder: (context, state) {
-              return ProfileMenu(
-                text: "Log Out",
-                icon: "assets/icons/Log out.svg",
-                press: () => cubit.logout(),
+              return Visibility(
+                visible:state.profileStatus!= ProfileStatus.loading,
+                child: ProfileMenu(
+                  text: "Log Out",
+                  icon: "assets/icons/Log out.svg",
+                  press: () => cubit.logout(),
+                ),
               );
             },
           ),
