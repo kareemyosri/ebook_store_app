@@ -61,9 +61,9 @@ class SearchCubit extends Cubit<SearchState> {
         'min': selectedRange.start,
         'max': selectedRange.end,
         'search': searchKey,
-        'is_bestseller': isBestSeller ?? 1,
+        'is_bestseller': isBestSeller,
         'category_id': selectedCategoryId,
-        'limit': limit ?? 3,
+        'limit': limit,
       },
     ).then((value) {
       print(value.data);
