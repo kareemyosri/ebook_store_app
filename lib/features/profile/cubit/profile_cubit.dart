@@ -57,7 +57,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     DioHelper.PostData(url: logoutdUrl).then((value) async {
       await FlutterSecureStorageCache.delete(key: MySharedKeys.token);
       emit(state.copyWith(logOutStatus: LogOutStatus.success));
-      close();
+     // close();
     }).catchError((error) {
       emit(state.copyWith(logOutStatus: LogOutStatus.error));
     });
